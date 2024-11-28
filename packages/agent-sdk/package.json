@@ -1,0 +1,16 @@
+{
+  "name": "agent-sdk",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "viem": "latest",
+    "near-safe": "latest"
+  }
+}
