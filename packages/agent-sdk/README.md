@@ -26,7 +26,7 @@ const parsers: FieldParser<Input> = {
 };
 ```
 
-Then the route could be implemented as in [examples/erc20transfer.ts](./examples/erc20transfer.ts) - which utilizes other utils from this package.
+Then the route could be implemented as in [examples/erc20transfer.ts](https://github.com/BitteProtocol/core/blob/main/packages/agent-sdk/examples/erc20transfer.ts) - which utilizes other utils from this package.
 
 ## Development
 

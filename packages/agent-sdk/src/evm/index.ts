@@ -5,6 +5,7 @@ import { getAddress, type Hex, zeroAddress, type Address } from "viem";
 export * from "./types";
 export * from "./erc20";
 export * from "./weth";
+export * from "./tokens";
 
 export function signRequestFor({
   from,
