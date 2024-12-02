@@ -4,6 +4,7 @@ import { getAddress, type Hex, zeroAddress, type Address } from "viem";
 
 export * from "./types";
 export * from "./erc20";
+export * from "./weth";
 
 export function signRequestFor({
   from,
@@ -14,7 +15,6 @@ export function signRequestFor({
   chainId: number;
   metaTransactions: MetaTransaction[];
 }): SignRequestData {
-  console.log("metaTransactions", metaTransactions);
   return {
     method: "eth_sendTransaction",
     chainId,
@@ -59,7 +59,6 @@ export async function validateRequest<
   safeSaltNonce: string,
 ): Promise<TResponse | null> {
   const metadataHeader = req.headers.get("mb-metadata");
-  console.log("Request Metadata:", JSON.stringify(metadataHeader, null, 2));
   const metadata = JSON.parse(metadataHeader ?? "{}");
   const { accountId, evmAddress } = metadata;
   if (!accountId || !evmAddress) {
@@ -78,7 +77,6 @@ export async function validateRequest<
       { status: 401 },
     ) as TResponse;
   }
-  console.log(`Valid request for ${accountId} <-> ${evmAddress}`);
   return null;
 }
 

@@ -1,5 +1,12 @@
 import { Network, type MetaTransaction, type SignRequestData } from "near-safe";
-import { type Address, encodeFunctionData, getAddress, parseAbi, parseEther, toHex } from "viem";
+import {
+  type Address,
+  encodeFunctionData,
+  getAddress,
+  parseAbi,
+  parseEther,
+  toHex,
+} from "viem";
 import { signRequestFor } from ".";
 
 type NativeAsset = {
@@ -64,11 +71,10 @@ export const unwrapMetaTransaction = (
     data: encodeFunctionData({
       abi: parseAbi(["function withdraw(uint wad)"]),
       functionName: "withdraw",
-      args: [parseEther(amount.toString())],
+      args: [amount],
     }),
   };
 };
-
 
 export function wrapSignRequest(
   chainId: number,
