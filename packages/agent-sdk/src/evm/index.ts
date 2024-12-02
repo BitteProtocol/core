@@ -2,6 +2,9 @@ import type { MetaTransaction, SignRequestData } from "near-safe";
 import { NearSafe } from "near-safe";
 import { getAddress, type Hex, zeroAddress, type Address } from "viem";
 
+export * from "./types";
+export * from "./erc20";
+
 export function signRequestFor({
   from,
   chainId,
@@ -49,11 +52,11 @@ export function createResponse(
 
 export async function validateRequest<
   TRequest extends BaseRequest,
-  TResponse extends BaseResponse
+  TResponse extends BaseResponse,
 >(
   req: TRequest,
   // TODO(bh2smith): Use Bitte Wallet's safeSaltNonce as Default.
-  safeSaltNonce: string
+  safeSaltNonce: string,
 ): Promise<TResponse | null> {
   const metadataHeader = req.headers.get("mb-metadata");
   console.log("Request Metadata:", JSON.stringify(metadataHeader, null, 2));
@@ -69,8 +72,10 @@ export async function validateRequest<
   const derivedSafeAddress = await getAdapterAddress(accountId, safeSaltNonce);
   if (derivedSafeAddress !== getAddress(evmAddress)) {
     return createResponse(
-      { error: `Invalid safeAddress in metadata: ${derivedSafeAddress} !== ${evmAddress}` },
-      { status: 401 }
+      {
+        error: `Invalid safeAddress in metadata: ${derivedSafeAddress} !== ${evmAddress}`,
+      },
+      { status: 401 },
     ) as TResponse;
   }
   console.log(`Valid request for ${accountId} <-> ${evmAddress}`);

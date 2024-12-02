@@ -3,7 +3,12 @@
   "version": "0.0.1",
   "author": "bh2smith",
   "description": "Agent SDK for Bitte Protocol",
-  "keywords": ["bitte", "protocol", "agent", "sdk"],
+  "keywords": [
+    "bitte",
+    "protocol",
+    "agent",
+    "sdk"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bitteprotocol/core.git"
