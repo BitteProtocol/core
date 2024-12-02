@@ -21,15 +21,16 @@ jobs:
 
       - name: Build
         run: bun run build
+      
+      - name: Set Version from Tag
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          npm version $VERSION --no-git-tag-version
+        working-directory: packages/agent-sdk
 
-      - name: Configure NPM
+      - name: Publish with npm
         run: |
           cd packages/agent-sdk
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-
-      - name: Publish to NPM
-        run: |
-          cd packages/agent-sdk
-          bun publish --no-git-checks
+          npm publish --access public
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
