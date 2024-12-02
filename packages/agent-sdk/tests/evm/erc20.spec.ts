@@ -18,16 +18,14 @@ describe("ERC20 Utilities", () => {
   const mockAmount = 1000n;
 
   describe("erc20Transfer", () => {
-    it("creates correct transfer transaction", async () => {
+    it("creates correct transfer transaction", () => {
       const params = {
         token: mockAddress,
         to: mockAddress,
         amount: mockAmount,
       };
 
-      const tx = await erc20Transfer(params);
-
-      expect(tx).toEqual({
+      expect(erc20Transfer(params)).toEqual({
         data: "0xa9059cbb000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000000000000000000003e8",
         to: "0x1234567890123456789012345678901234567890",
         value: "0x0",
@@ -43,24 +41,20 @@ describe("ERC20 Utilities", () => {
         amount: mockAmount,
       };
 
-      const tx = await erc20Approve(params);
-
-      expect(tx).toEqual({
+      expect(erc20Approve(params)).toEqual({
         data: "0x095ea7b3000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000000000000000000003e8",
         to: "0x1234567890123456789012345678901234567890",
         value: "0x0",
       });
     });
 
-    it("creates approval transaction with max amount when amount not specified", async () => {
+    it("creates approval transaction with max amount when amount not specified", () => {
       const params = {
         token: mockAddress,
         spender: mockAddress,
       };
 
-      const tx = await erc20Approve(params);
-
-      expect(tx).toEqual({
+      expect(erc20Approve(params)).toEqual({
         data: "0x095ea7b30000000000000000000000001234567890123456789012345678901234567890ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
         to: "0x1234567890123456789012345678901234567890",
         value: "0x0",

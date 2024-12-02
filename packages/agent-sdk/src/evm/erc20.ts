@@ -7,11 +7,11 @@ const MAX_APPROVAL = BigInt(
   "115792089237316195423570985008687907853269984665640564039457584007913129639935",
 );
 
-export async function erc20Transfer(params: {
+export function erc20Transfer(params: {
   token: Address;
   to: Address;
   amount: bigint;
-}): Promise<MetaTransaction> {
+}): MetaTransaction {
   const { token, to, amount } = params;
   return {
     to: token,
@@ -24,12 +24,12 @@ export async function erc20Transfer(params: {
   };
 }
 
-export async function erc20Approve(params: {
+export function erc20Approve(params: {
   token: Address;
   spender: Address;
   // If not provided, the maximum amount will be approved.
   amount?: bigint;
-}): Promise<MetaTransaction> {
+}): MetaTransaction {
   const { token, spender, amount } = params;
   return {
     to: token,
