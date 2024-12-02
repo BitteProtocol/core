@@ -1,7 +1,8 @@
 import { isAddress } from "viem";
 // TODO: Move outside of src folder.
 import tokenMap from "./tokenMap.json";
-import { getTokenInfo, type TokenInfo } from "@bitteprotocol/agent-sdk";
+import { getTokenInfo } from "./erc20";
+import { type TokenInfo } from "./types";
 
 type SymbolMapping = Record<string, TokenInfo>;
 type ChainId = number;
