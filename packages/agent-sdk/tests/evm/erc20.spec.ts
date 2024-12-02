@@ -99,6 +99,7 @@ describe("ERC20 Utilities", () => {
       const result = await getTokenInfo(mockChainId, mockAddress);
 
       expect(result).toEqual({
+        address: mockAddress,
         decimals: 18,
         symbol: "TEST",
       });
