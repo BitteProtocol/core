@@ -1,15 +1,13 @@
 import { parseUnits, type Address } from "viem";
-import { erc20Transfer, getTokenDecimals } from "./evm";
 import {
+  erc20Transfer,
+  getTokenDecimals,
   addressField,
   floatField,
   numberField,
   validateInput,
   type FieldParser,
-} from "./validate";
-
-export * from "./validate";
-export * from "./evm";
+} from "../src";
 
 interface Input {
   chainId: number;
