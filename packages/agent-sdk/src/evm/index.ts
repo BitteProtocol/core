@@ -45,7 +45,8 @@ export function createResponse(
   return {
     json: (_data, responseInit) => ({
       data: responseData,
-      ...(responseInit ?? init),
+      ...init,
+      ...responseInit,
     }),
   };
 }

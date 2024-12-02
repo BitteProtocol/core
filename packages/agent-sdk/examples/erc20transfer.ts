@@ -7,6 +7,7 @@ import {
   numberField,
   validateInput,
   type FieldParser,
+  signRequestFor,
 } from "../src";
 
 interface Input {
@@ -34,14 +35,14 @@ export async function GET(req: Request): Promise<Response> {
       parsers,
     );
     const decimals = await getTokenDecimals(chainId, token);
+    const tx = erc20Transfer({
+      token,
+      to: recipient,
+      amount: parseUnits(amount.toString(), decimals),
+    });
     return Response.json(
       {
-        transaction: erc20Transfer({
-          chainId,
-          token,
-          to: recipient,
-          amount: parseUnits(amount.toString(), decimals),
-        }),
+        transaction: signRequestFor({ chainId, metaTransactions: [tx] }),
       },
       { status: 200 },
     );
