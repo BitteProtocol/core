@@ -1,4 +1,4 @@
-import { Network, type MetaTransaction, type SignRequestData } from "near-safe";
+import { Network, type MetaTransaction } from "near-safe";
 import {
   type Address,
   encodeFunctionData,
@@ -7,7 +7,6 @@ import {
   parseEther,
   toHex,
 } from "viem";
-import { signRequestFor } from ".";
 
 type NativeAsset = {
   address: Address;
@@ -51,16 +50,6 @@ export function validateWethInput(params: URLSearchParams): {
   };
 }
 
-export function unwrapSignRequest(
-  chainId: number,
-  amount: bigint,
-): SignRequestData {
-  return signRequestFor({
-    chainId,
-    metaTransactions: [unwrapMetaTransaction(chainId, amount)],
-  });
-}
-
 export const unwrapMetaTransaction = (
   chainId: number,
   amount: bigint,
@@ -75,16 +64,6 @@ export const unwrapMetaTransaction = (
     }),
   };
 };
-
-export function wrapSignRequest(
-  chainId: number,
-  amount: bigint,
-): SignRequestData {
-  return signRequestFor({
-    chainId,
-    metaTransactions: [wrapMetaTransaction(chainId, amount)],
-  });
-}
 
 export const wrapMetaTransaction = (
   chainId: number,

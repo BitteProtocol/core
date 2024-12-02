@@ -2,8 +2,6 @@ import { Network } from "near-safe";
 import { parseEther } from "viem";
 import {
   validateWethInput,
-  unwrapSignRequest,
-  wrapSignRequest,
   getNativeAsset,
   unwrapMetaTransaction,
   wrapMetaTransaction,
@@ -93,42 +91,6 @@ describe("evm/weth", () => {
       expect(() => validateWethInput(params)).toThrow(
         "Invalid amount, must be a positive float",
       );
-    });
-  });
-
-  describe("unwrapSignRequest", () => {
-    it("creates correct unwrap sign request", () => {
-      const signRequest = unwrapSignRequest(100, 25n);
-      expect(signRequest).toEqual({
-        method: "eth_sendTransaction",
-        chainId: 100,
-        params: [
-          {
-            from: "0x0000000000000000000000000000000000000000",
-            to: "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
-            value: "0x0",
-            data: "0x2e1a7d4d0000000000000000000000000000000000000000000000000000000000000019",
-          },
-        ],
-      });
-    });
-  });
-
-  describe("wrapSignRequest", () => {
-    it("creates correct wrap sign request", () => {
-      const signRequest = wrapSignRequest(100, 25n);
-      expect(signRequest).toEqual({
-        method: "eth_sendTransaction",
-        chainId: 100,
-        params: [
-          {
-            from: "0x0000000000000000000000000000000000000000",
-            to: "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
-            value: "0x19",
-            data: "0xd0e30db0",
-          },
-        ],
-      });
     });
   });
 
