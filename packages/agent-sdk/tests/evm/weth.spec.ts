@@ -6,7 +6,6 @@ import {
   unwrapMetaTransaction,
   wrapMetaTransaction,
 } from "../../src/evm/weth";
-import { signRequestFor } from "../../src";
 
 // Mock the external dependencies
 jest.mock("../../src", () => ({
