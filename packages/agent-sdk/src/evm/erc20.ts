@@ -65,6 +65,7 @@ export async function getTokenInfo(
     getTokenSymbol(chainId, address),
   ]);
   return {
+    address,
     decimals,
     symbol,
   };
