@@ -28,6 +28,11 @@ jobs:
           npm version $VERSION --no-git-tag-version
         working-directory: packages/agent-sdk
 
+      - name: Configure NPM Authentication
+        run: |
+          echo "@bitteprotocol:registry=https://registry.npmjs.org/" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+
       - name: Publish with npm
         run: |
           cd packages/agent-sdk
