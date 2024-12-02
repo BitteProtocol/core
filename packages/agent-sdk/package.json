@@ -1,16 +1,32 @@
 {
-  "name": "agent-sdk",
+  "name": "@bitteprotocol/agent-sdk",
+  "version": "0.0.1",
+  "author": "bh2smith",
+  "description": "Agent SDK for Bitte Protocol",
+  "keywords": ["bitte", "protocol", "agent", "sdk"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitteprotocol/core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bitteprotocol/core/issues"
+  },
+  "homepage": "https://bitte.ai",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint . --ext .ts",
-    "format": "prettier --write ."
+    "build": "tsc"
   },
   "dependencies": {
-    "viem": "latest",
-    "near-safe": "latest"
+    "viem": "^2.21.52",
+    "near-safe": "^0.9.4"
   }
 }
