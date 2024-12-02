@@ -20,25 +20,17 @@ describe("ERC20 Utilities", () => {
   describe("erc20Transfer", () => {
     it("creates correct transfer transaction", async () => {
       const params = {
-        chainId: mockChainId,
         token: mockAddress,
         to: mockAddress,
         amount: mockAmount,
       };
 
-      const signRequest = await erc20Transfer(params);
+      const tx = await erc20Transfer(params);
 
-      expect(signRequest).toEqual({
-        chainId: 1,
-        method: "eth_sendTransaction",
-        params: [
-          {
-            data: "0xa9059cbb000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000000000000000000003e8",
-            from: "0x0000000000000000000000000000000000000000",
-            to: "0x1234567890123456789012345678901234567890",
-            value: "0x",
-          },
-        ],
+      expect(tx).toEqual({
+        data: "0xa9059cbb000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000000000000000000003e8",
+        to: "0x1234567890123456789012345678901234567890",
+        value: "0x0",
       });
     });
   });
@@ -46,48 +38,32 @@ describe("ERC20 Utilities", () => {
   describe("erc20Approve", () => {
     it("creates approval transaction with specific amount", async () => {
       const params = {
-        chainId: mockChainId,
         token: mockAddress,
         spender: mockAddress,
         amount: mockAmount,
       };
 
-      const signRequest = await erc20Approve(params);
+      const tx = await erc20Approve(params);
 
-      expect(signRequest).toEqual({
-        chainId: 1,
-        method: "eth_sendTransaction",
-        params: [
-          {
-            data: "0x095ea7b3000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000000000000000000003e8",
-            from: "0x0000000000000000000000000000000000000000",
-            to: "0x1234567890123456789012345678901234567890",
-            value: "0x",
-          },
-        ],
+      expect(tx).toEqual({
+        data: "0x095ea7b3000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000000000000000000003e8",
+        to: "0x1234567890123456789012345678901234567890",
+        value: "0x0",
       });
     });
 
     it("creates approval transaction with max amount when amount not specified", async () => {
       const params = {
-        chainId: mockChainId,
         token: mockAddress,
         spender: mockAddress,
       };
 
-      const signRequest = await erc20Approve(params);
+      const tx = await erc20Approve(params);
 
-      expect(signRequest).toEqual({
-        chainId: 1,
-        method: "eth_sendTransaction",
-        params: [
-          {
-            data: "0x095ea7b30000000000000000000000001234567890123456789012345678901234567890ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-            from: "0x0000000000000000000000000000000000000000",
-            to: "0x1234567890123456789012345678901234567890",
-            value: "0x",
-          },
-        ],
+      expect(tx).toEqual({
+        data: "0x095ea7b30000000000000000000000001234567890123456789012345678901234567890ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        to: "0x1234567890123456789012345678901234567890",
+        value: "0x0",
       });
     });
   });

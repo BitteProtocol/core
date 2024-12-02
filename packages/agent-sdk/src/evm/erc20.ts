@@ -1,7 +1,6 @@
 import { erc20Abi } from "viem";
 import { encodeFunctionData, type Address } from "viem";
-import { signRequestFor } from "..";
-import { getClient, type SignRequestData } from "near-safe";
+import { getClient, type MetaTransaction } from "near-safe";
 import type { TokenInfo } from "./types";
 
 const MAX_APPROVAL = BigInt(
@@ -9,50 +8,38 @@ const MAX_APPROVAL = BigInt(
 );
 
 export async function erc20Transfer(params: {
-  chainId: number;
   token: Address;
   to: Address;
   amount: bigint;
-}): Promise<SignRequestData> {
-  const { chainId, token, to, amount } = params;
-  return signRequestFor({
-    chainId,
-    metaTransactions: [
-      {
-        to: token,
-        value: "0x",
-        data: encodeFunctionData({
-          abi: erc20Abi,
-          functionName: "transfer",
-          args: [to, amount],
-        }),
-      },
-    ],
-  });
+}): Promise<MetaTransaction> {
+  const { token, to, amount } = params;
+  return {
+    to: token,
+    value: "0x0",
+    data: encodeFunctionData({
+      abi: erc20Abi,
+      functionName: "transfer",
+      args: [to, amount],
+    }),
+  };
 }
 
 export async function erc20Approve(params: {
-  chainId: number;
   token: Address;
   spender: Address;
   // If not provided, the maximum amount will be approved.
   amount?: bigint;
-}): Promise<SignRequestData> {
-  const { chainId, token, spender, amount } = params;
-  return signRequestFor({
-    chainId,
-    metaTransactions: [
-      {
-        to: token,
-        value: "0x",
-        data: encodeFunctionData({
-          abi: erc20Abi,
-          functionName: "approve",
-          args: [spender, amount ?? MAX_APPROVAL],
-        }),
-      },
-    ],
-  });
+}): Promise<MetaTransaction> {
+  const { token, spender, amount } = params;
+  return {
+    to: token,
+    value: "0x0",
+    data: encodeFunctionData({
+      abi: erc20Abi,
+      functionName: "approve",
+      args: [spender, amount ?? MAX_APPROVAL],
+    }),
+  };
 }
 
 export async function checkAllowance(
