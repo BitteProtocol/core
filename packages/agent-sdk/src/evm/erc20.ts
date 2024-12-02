@@ -55,6 +55,20 @@ export async function erc20Approve(params: {
   });
 }
 
+export async function checkAllowance(
+  owner: Address,
+  token: Address,
+  spender: Address,
+  chainId: number,
+): Promise<bigint> {
+  return getClient(chainId).readContract({
+    address: token,
+    abi: erc20Abi,
+    functionName: "allowance",
+    args: [owner, spender],
+  });
+}
+
 export async function getTokenInfo(
   chainId: number,
   address: Address,
