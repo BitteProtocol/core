@@ -9,7 +9,7 @@
   "scripts": {
     "build": "bun run --cwd packages/agent-sdk build",
     "lint": "prettier --check packages/**/* && eslint packages/",
-    "format": "prettier --write packages/**/* && eslint packages/ --fix"
+    "fmt": "prettier --write packages/**/* && eslint packages/ --fix"
   },
   "devDependencies": {
     "@types/bun": "latest",
