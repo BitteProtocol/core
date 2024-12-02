@@ -37,5 +37,5 @@ jobs:
       - name: Lint & Build
         run: |
           bun lint
-          # bun run test
+          bun run test
           bun run build
