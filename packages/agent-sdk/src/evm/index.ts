@@ -82,7 +82,7 @@ export async function validateRequest<
   return null;
 }
 
-async function getAdapterAddress(
+export async function getAdapterAddress(
   accountId: string,
   safeSaltNonce: string,
 ): Promise<Address> {
