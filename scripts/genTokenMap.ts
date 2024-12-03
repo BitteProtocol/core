@@ -71,7 +71,7 @@ export async function loadTokenMapping(
           console.warn(
             `Duplicate symbol found for ${symbol} on chain ${chainId}:`,
             `\nExisting: ${mapping[chainId][lowerCaseSymbol].address}`,
-            `\nNew: ${address}`
+            `\nNew: ${address}`,
           );
           return; // Skip this entry, keeping the first occurrence
         }
