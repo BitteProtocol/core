@@ -28,5 +28,8 @@
     "ts-jest": "^29.2.5",
     "typescript": "^5.7.2",
     "viem": "^2.21.53"
+  },
+  "dependencies": {
+    "zerion-sdk": "^0.0.13"
   }
 }

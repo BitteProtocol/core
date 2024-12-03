@@ -6,6 +6,7 @@ export * from "./types";
 export * from "./erc20";
 export * from "./weth";
 export * from "./tokens";
+export * from "./safe";
 
 export function signRequestFor({
   from,
