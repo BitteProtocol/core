@@ -1,7 +1,6 @@
 import { zeroAddress } from "viem";
 import { getSafeBalances, flatSafeBalances } from "../../src";
 describe("getSafeBalances", () => {
-
   const originalWarn = console.warn;
 
   beforeEach(() => {
