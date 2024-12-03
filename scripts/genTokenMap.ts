@@ -20,8 +20,11 @@ async function generateTokenMapJson(
 ): Promise<void> {
   dotenv.config();
   const { DUNE_API_KEY } = process.env;
+  if (!DUNE_API_KEY) {
+    throw new Error("DUNE_API_KEY is not set");
+  }
 
-  const dune = new DuneClient(DUNE_API_KEY ?? "");
+  const dune = new DuneClient(DUNE_API_KEY);
   const queryId = 4362544;
   const csv = useLatestResults
     ? await dune.exec.getLastResultCSV(queryId)
@@ -100,4 +103,4 @@ export async function loadTokenMapping(
   });
 }
 
-generateTokenMapJson(true).catch(console.error);
+generateTokenMapJson().catch(console.error);
