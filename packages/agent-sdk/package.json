@@ -31,7 +31,8 @@
     "build": "tsc"
   },
   "dependencies": {
-    "viem": "^2.21.52",
-    "near-safe": "^0.9.4"
+    "viem": "^2.21.53",
+    "near-safe": "^0.9.4",
+    "zerion-sdk": "^0.0.13"
   }
 }
