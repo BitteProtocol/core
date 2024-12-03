@@ -35,14 +35,14 @@ export async function getTokenDetails(
   symbolOrAddress: string,
   tokenMap?: BlockchainMapping,
 ): Promise<TokenInfo> {
+  if (isAddress(symbolOrAddress, { strict: false })) {
+    return getTokenInfo(chainId, symbolOrAddress);
+  }
   if (!tokenMap) {
     console.log(
       "Loading TokenMap... this should be stored in memory consider setting it with loadTokenMap() in your app and passing it here.",
     );
     tokenMap = await loadTokenMap();
-  }
-  if (isAddress(symbolOrAddress, { strict: false })) {
-    return getTokenInfo(chainId, symbolOrAddress);
   }
   console.log("Seeking TokenMap for Symbol", symbolOrAddress);
   // TokenMap has lower cased (sanitized) symbols
