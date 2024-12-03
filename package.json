@@ -9,19 +9,24 @@
   "type": "module",
   "scripts": {
     "build": "bun run --cwd packages/agent-sdk build",
-    "lint": "prettier --check packages/**/* && eslint packages/",
-    "fmt": "prettier --write packages/**/* && eslint packages/ --fix",
+    "tokenMap": "bun run scripts/genTokenMap.ts",
+    "lint": "prettier --check {scripts,packages}/**/* && eslint packages/",
+    "fmt": "prettier --write {scripts,packages}/**/* && eslint packages/ --fix",
     "test": "jest"
   },
   "devDependencies": {
+    "@duneanalytics/client-sdk": "^0.2.4",
     "@types/bun": "latest",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.16.0",
     "@typescript-eslint/parser": "^8.16.0",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.6",
     "eslint": "^9.15.0",
     "jest": "^29.7.0",
     "prettier": "^3.4.1",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "viem": "^2.21.53"
   }
 }
