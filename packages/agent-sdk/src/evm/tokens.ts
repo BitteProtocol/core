@@ -12,13 +12,15 @@ const TOKEN_MAP_URL =
 // Add a variable to store the loaded token map
 let loadedTokenMap: BlockchainMapping | null = null;
 
-export async function loadTokenMap(): Promise<BlockchainMapping> {
+export async function loadTokenMap(
+  url: string = TOKEN_MAP_URL,
+): Promise<BlockchainMapping> {
   if (loadedTokenMap) {
     return loadedTokenMap;
   }
 
   try {
-    const response = await fetch(TOKEN_MAP_URL);
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to load tokenMap.json: ${response.statusText}`);
     }
