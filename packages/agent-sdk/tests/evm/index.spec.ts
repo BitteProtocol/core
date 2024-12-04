@@ -1,5 +1,10 @@
-import { signRequestFor, createResponse, validateRequest } from "../../src/evm";
+import {
+  signRequestFor,
+  fallbackResponder,
+  validateRequest,
+} from "../../src/evm";
 import { zeroAddress } from "viem";
+import { NextRequest, NextResponse } from "next/server";
 import type { BaseRequest } from "../../src/evm";
 
 // Mock external dependencies
@@ -64,11 +69,11 @@ describe("evm/index", () => {
     });
   });
 
-  describe("createResponse", () => {
+  describe("fallbackResponder", () => {
     it("creates a response with default status", () => {
       const responseData = { message: "Success" };
 
-      const response = createResponse(responseData);
+      const response = fallbackResponder(responseData);
 
       expect(response.json({}, {})).toEqual({
         data: responseData,
@@ -78,7 +83,7 @@ describe("evm/index", () => {
     it("creates a response with specified status", () => {
       const responseData = { message: "Error" };
 
-      const response = createResponse(responseData, { status: 400 });
+      const response = fallbackResponder(responseData, { status: 400 });
       expect(response.json({}, {})).toEqual({
         data: responseData,
         status: 400,
@@ -161,4 +166,48 @@ describe("evm/index", () => {
       });
     });
   });
+
+  describe("validateNextRequest", () => {
+    it("should validate a real request", async () => {
+      const request = new NextRequest(
+        new Request("https://example.com", {
+          method: "POST",
+          headers: new Headers({
+            "mb-metadata": JSON.stringify({
+              accountId: "max-normal.near",
+              evmAddress: zeroAddress,
+            }),
+          }),
+          body: JSON.stringify({ test: "data" }),
+        }),
+      );
+
+      const result = await validateNextRequest(request, "0");
+      // Get the response data
+      const responseData = await result?.json();
+
+      // Assert the status and response data separately
+      expect(result?.status).toBe(401);
+      expect(responseData).toEqual({
+        error: `Invalid safeAddress in metadata: 0x123 !== ${zeroAddress}`,
+      });
+    });
+  });
 });
+
+// TODO: Use in Next Agents.
+export async function validateNextRequest(
+  req: NextRequest,
+  safeSaltNonce?: string,
+): Promise<NextResponse | null> {
+  const result = await validateRequest<NextRequest, NextResponse>(
+    req,
+    safeSaltNonce || "0",
+    (data: unknown, init?: { status?: number }) =>
+      NextResponse.json(data, init),
+  );
+
+  console.log("validateNextRequest result:", result); // Add this line for debugging
+
+  return result;
+}
