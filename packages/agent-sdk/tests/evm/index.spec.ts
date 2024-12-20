@@ -113,7 +113,7 @@ describe("evm/index", () => {
 
       mockGetAdapterAddress.mockResolvedValue("0x123");
 
-      const result = await validateRequest(req, "safeSaltNonce");
+      const result = await validateRequest(req);
 
       expect(result).toBeNull();
     });
@@ -125,7 +125,7 @@ describe("evm/index", () => {
         },
       } as BaseRequest;
 
-      const result = await validateRequest(req, "safeSaltNonce");
+      const result = await validateRequest(req);
 
       expect(result).toEqual({
         json: expect.any(Function),
@@ -152,7 +152,7 @@ describe("evm/index", () => {
 
       mockGetAdapterAddress.mockResolvedValue(mockAddress);
 
-      const result = await validateRequest(req, "0");
+      const result = await validateRequest(req);
       expect(result).toEqual({
         json: expect.any(Function),
       });
@@ -182,7 +182,7 @@ describe("evm/index", () => {
         }),
       );
 
-      const result = await validateNextRequest(request, "0");
+      const result = await validateNextRequest(request);
       // Get the response data
       const responseData = await result?.json();
 
@@ -198,11 +198,9 @@ describe("evm/index", () => {
 // TODO: Use in Next Agents.
 export async function validateNextRequest(
   req: NextRequest,
-  safeSaltNonce?: string,
 ): Promise<NextResponse | null> {
   const result = await validateRequest<NextRequest, NextResponse>(
     req,
-    safeSaltNonce || "0",
     (data: unknown, init?: { status?: number }) =>
       NextResponse.json(data, init),
   );
