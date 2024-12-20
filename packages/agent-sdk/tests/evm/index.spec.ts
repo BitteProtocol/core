@@ -92,40 +92,14 @@ describe("evm/index", () => {
   });
 
   describe("validateRequest", () => {
-    const mockAddress = "0x1111111111111111111111111111111111111111";
-    const mockGetAdapterAddress = jest.fn();
-    jest.mock("../../src/evm", () => ({
-      ...jest.requireActual("../../src/evm"),
-      getAdapterAddress: mockGetAdapterAddress,
-    }));
-
-    it("returns null for valid request", async () => {
-      const req = {
-        headers: {
-          get: jest.fn().mockReturnValue(
-            JSON.stringify({
-              accountId: "testAccount",
-              evmAddress: "0x123",
-            }),
-          ),
-        },
-      } as BaseRequest;
-
-      mockGetAdapterAddress.mockResolvedValue("0x123");
-
-      const result = await validateRequest(req, "safeSaltNonce");
-
-      expect(result).toBeNull();
-    });
-
-    it("returns error response for missing accountId or evmAddress", async () => {
+    it("returns error response for missing accountId and evmAddress", async () => {
       const req = {
         headers: {
           get: jest.fn().mockReturnValue("{}"),
         },
       } as BaseRequest;
 
-      const result = await validateRequest(req, "safeSaltNonce");
+      const result = await validateRequest(req);
 
       expect(result).toEqual({
         json: expect.any(Function),
@@ -133,37 +107,39 @@ describe("evm/index", () => {
 
       const jsonResponse = result?.json({}, {});
       expect(jsonResponse).toEqual({
-        data: { error: "Missing accountId or evmAddress in metadata" },
+        data: { error: "Missing accountId and evmAddress in metadata" },
         status: 400,
       });
     });
 
-    it("returns error response for invalid safeAddress", async () => {
+    it("returns null for valid request with accountId", async () => {
       const req = {
         headers: {
           get: jest.fn().mockReturnValue(
             JSON.stringify({
               accountId: "testAccount",
-              evmAddress: mockAddress,
             }),
           ),
         },
       } as BaseRequest;
 
-      mockGetAdapterAddress.mockResolvedValue(mockAddress);
+      const result = await validateRequest(req);
+      expect(result).toBeNull();
+    });
 
-      const result = await validateRequest(req, "0");
-      expect(result).toEqual({
-        json: expect.any(Function),
-      });
-
-      const jsonResponse = result?.json({}, {});
-      expect(jsonResponse).toEqual({
-        data: {
-          error: `Invalid safeAddress in metadata: 0x123 !== ${mockAddress}`,
+    it("returns null for valid request with evmAddress", async () => {
+      const req = {
+        headers: {
+          get: jest.fn().mockReturnValue(
+            JSON.stringify({
+              evmAddress: "0x123",
+            }),
+          ),
         },
-        status: 401,
-      });
+      } as BaseRequest;
+
+      const result = await validateRequest(req);
+      expect(result).toBeNull();
     });
   });
 
@@ -182,15 +158,8 @@ describe("evm/index", () => {
         }),
       );
 
-      const result = await validateNextRequest(request, "0");
-      // Get the response data
-      const responseData = await result?.json();
-
-      // Assert the status and response data separately
-      expect(result?.status).toBe(401);
-      expect(responseData).toEqual({
-        error: `Invalid safeAddress in metadata: 0x123 !== ${zeroAddress}`,
-      });
+      const result = await validateNextRequest(request);
+      expect(result).toBeNull();
     });
   });
 });
@@ -198,16 +167,12 @@ describe("evm/index", () => {
 // TODO: Use in Next Agents.
 export async function validateNextRequest(
   req: NextRequest,
-  safeSaltNonce?: string,
 ): Promise<NextResponse | null> {
   const result = await validateRequest<NextRequest, NextResponse>(
     req,
-    safeSaltNonce || "0",
     (data: unknown, init?: { status?: number }) =>
       NextResponse.json(data, init),
   );
-
-  console.log("validateNextRequest result:", result); // Add this line for debugging
 
   return result;
 }
