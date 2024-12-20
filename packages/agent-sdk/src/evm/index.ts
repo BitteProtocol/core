@@ -58,7 +58,6 @@ export async function validateRequest<
   TResponse extends BaseResponse,
 >(
   req: TRequest,
-  // TODO(bh2smith): Use Bitte Wallet's safeSaltNonce as Default.
   responder?: (data: object, init?: { status?: number }) => TResponse,
 ): Promise<TResponse | null> {
   const createResponse = responder ? responder : fallbackResponder;
