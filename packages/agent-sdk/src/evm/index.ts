@@ -59,25 +59,18 @@ export async function validateRequest<
 >(
   req: TRequest,
   // TODO(bh2smith): Use Bitte Wallet's safeSaltNonce as Default.
-  safeSaltNonce: string,
   responder?: (data: object, init?: { status?: number }) => TResponse,
 ): Promise<TResponse | null> {
   const createResponse = responder ? responder : fallbackResponder;
   const metadataHeader = req.headers.get("mb-metadata");
   const metadata = JSON.parse(metadataHeader ?? "{}");
   const { accountId, evmAddress } = metadata;
-  if (!accountId || !evmAddress) {
+  if (!accountId && !evmAddress) {
     const error = "Missing accountId or evmAddress in metadata";
     console.error(error);
     return createResponse({ error }, { status: 400 }) as TResponse;
   }
 
-  const derivedSafeAddress = await getAdapterAddress(accountId, safeSaltNonce);
-  if (derivedSafeAddress !== getAddress(evmAddress)) {
-    const error = `Invalid safeAddress in metadata: ${derivedSafeAddress} !== ${evmAddress}`;
-    console.error(error);
-    return createResponse({ error }, { status: 401 }) as TResponse;
-  }
   return null;
 }
 
