@@ -66,7 +66,7 @@ export async function validateRequest<
   const metadata = JSON.parse(metadataHeader ?? "{}");
   const { accountId, evmAddress } = metadata;
   if (!accountId && !evmAddress) {
-    const error = "Missing accountId or evmAddress in metadata";
+    const error = "Missing accountId and evmAddress in metadata";
     console.error(error);
     return createResponse({ error }, { status: 400 }) as TResponse;
   }
