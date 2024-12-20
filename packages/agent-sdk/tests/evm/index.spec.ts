@@ -107,7 +107,7 @@ describe("evm/index", () => {
 
       const jsonResponse = result?.json({}, {});
       expect(jsonResponse).toEqual({
-        data: { error: "Missing accountId or evmAddress in metadata" },
+        data: { error: "Missing accountId and evmAddress in metadata" },
         status: 400,
       });
     });
