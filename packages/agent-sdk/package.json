@@ -20,15 +20,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "types": "dist/esm/index.d.ts",
   "files": [
-    "dist"
+    "dist/**/*"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "rm -fr dist/* && bun build:esm && bun build:cjs",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json"
   },
   "dependencies": {
     "viem": "^2.21.53",

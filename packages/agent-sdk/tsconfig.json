@@ -1,16 +1,12 @@
 {
   "compilerOptions": {
-    // Enable latest features
-    "lib": ["ESNext", "DOM"],
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "ES2020",  
     "moduleDetection": "force",
 
     // Bundler mode
-    "moduleResolution": "bundler",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "verbatimModuleSyntax": true,
     // "allowImportingTsExtensions": true,
     // "noEmit": true,
 
