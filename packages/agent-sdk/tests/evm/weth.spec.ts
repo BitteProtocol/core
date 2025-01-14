@@ -94,7 +94,7 @@ describe("evm/weth", () => {
   });
 
   describe("getNativeAsset", () => {
-    it("returns correct native asset info for known chain", () => {
+    it("returns correct native asset info for known/gnosis chain", () => {
       const result = getNativeAsset(100);
 
       expect(result).toEqual({
@@ -102,6 +102,18 @@ describe("evm/weth", () => {
         symbol: "XDAI",
         scanUrl:
           "https://gnosisscan.io/address/0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+        decimals: 18,
+      });
+    });
+
+    it("returns correct native asset info for Avalanche chain", () => {
+      const result = getNativeAsset(43114);
+      const WAVAX = "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7";
+      expect(result).toEqual({
+        address: WAVAX,
+        symbol: "AVAX",
+        scanUrl:
+          `https://snowtrace.io/address/${WAVAX}`,
         decimals: 18,
       });
     });
@@ -125,4 +137,6 @@ describe("evm/weth", () => {
       );
     });
   });
+
+  
 });
