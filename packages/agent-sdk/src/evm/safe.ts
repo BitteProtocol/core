@@ -74,7 +74,6 @@ export async function getSafeBalances(
     if (!response.ok) {
       if (response.status === 404) {
         console.warn(`Safe not found for ${address}`);
-        
       }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
