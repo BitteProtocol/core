@@ -46,6 +46,7 @@ const DuneNetworkMap: { [key: string]: number } = {
   bnb: 56,
   optimism: 10,
   polygon: 137,
+  avalanche_c: 43114,
 };
 
 export async function loadTokenMapping(
@@ -103,4 +104,4 @@ export async function loadTokenMapping(
   });
 }
 
-generateTokenMapJson().catch(console.error);
+generateTokenMapJson(true).catch(console.error);
