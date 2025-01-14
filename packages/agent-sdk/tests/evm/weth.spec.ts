@@ -112,8 +112,7 @@ describe("evm/weth", () => {
       expect(result).toEqual({
         address: WAVAX,
         symbol: "AVAX",
-        scanUrl:
-          `https://snowtrace.io/address/${WAVAX}`,
+        scanUrl: `https://snowtrace.io/address/${WAVAX}`,
         decimals: 18,
       });
     });
@@ -137,6 +136,4 @@ describe("evm/weth", () => {
       );
     });
   });
-
-  
 });

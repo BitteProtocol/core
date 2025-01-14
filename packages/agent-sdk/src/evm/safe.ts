@@ -22,6 +22,7 @@ const SAFE_NETWORKS: { [chainId: number]: string } = {
   137: "polygon",
   8453: "base",
   42161: "arbitrum",
+  43114: "avalanche",
   11155111: "sepolia",
 };
 
@@ -52,13 +53,14 @@ export async function getSafeBalances(
   zerionKey?: string,
 ): Promise<TokenBalance[]> {
   const baseUrl = safeTxServiceUrlFor(chainId);
+  console.log(baseUrl);
   if (!baseUrl) {
     console.warn(
       `Chain ID ${chainId} not supported by Safe Transaction Service`,
     );
     return [];
   }
-  const trusted = chainId === 11155111 ? false : true;
+  const trusted = false; // Avalanche USDC not trusted: 0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E
   const exclude_spam = chainId === 11155111 ? false : true;
   const url = `${baseUrl}/api/v1/safes/${checksumAddress(address)}/balances/?trusted=${trusted}&exclude_spam=${exclude_spam}`;
 

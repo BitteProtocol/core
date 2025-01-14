@@ -42,6 +42,27 @@ describe("getSafeBalances", () => {
     ]);
   });
 
+  it.skip("should fetch balances for Avalanche", async () => {
+    const result = await getSafeBalances(
+      43114,
+      "0x54F08c27e75BeA0cdDdb8aA9D69FD61551B19BbA",
+    );
+    expect(result).toEqual([
+      { tokenAddress: null, token: null, balance: "0" },
+      {
+        tokenAddress: "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E",
+        token: {
+          name: "USD Coin",
+          symbol: "USDC",
+          decimals: 6,
+          logoUri:
+            "https://safe-transaction-assets.safe.global/tokens/logos/0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E.png",
+        },
+        balance: "19969999",
+      },
+    ]);
+  });
+
   it.skip("should fetch balances for Mainnet", async () => {
     const result = await flatSafeBalances(
       1,
