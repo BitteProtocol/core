@@ -74,31 +74,40 @@ export async function getSafeBalances(
     if (!response.ok) {
       if (response.status === 404) {
         console.warn(`Safe not found for ${address}`);
-        if (!zerionKey) {
-          return [];
-        }
-        console.info("Zerion Key provided - using Zerion");
-        // Not a Safe, try Zerion
-        try {
-          const zerion = new ZerionAPI(zerionKey);
-          // TODO(bh2smith): This is not super efficient, but it works for now.
-          // Zerion API has its own network filter (but its not by chainID).
-          const balances = await zerion.ui.getUserBalances(address, {
-            options: { supportedChains: [chainId] },
-          });
-          return zerionToTokenBalances(balances.tokens);
-        } catch (error) {
-          console.error("Error fetching Zerion balances:", error);
-          return [];
-        }
+        
       }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
-    return await response.json();
+    const data: TokenBalance[] = await response.json();
+    console.log(`Retrieved ${data.length} balances`);
+    return data;
   } catch (error) {
-    console.error("Error fetching Safe balances:", error);
-    throw error;
+    console.warn("Error fetching Safe balances:", error);
+    return getZerionBalances(chainId, address, zerionKey);
+  }
+}
+
+async function getZerionBalances(
+  chainId: number,
+  address: Address,
+  zerionKey?: string,
+): Promise<TokenBalance[]> {
+  if (!zerionKey) {
+    return [];
+  }
+  console.info("Zerion Key provided - using Zerion");
+  // Not a Safe, try Zerion
+  try {
+    const zerion = new ZerionAPI(zerionKey);
+    // TODO(bh2smith): This is not super efficient, but it works for now.
+    // Zerion API has its own network filter (but its not by chainID).
+    const balances = await zerion.ui.getUserBalances(address, {
+      options: { supportedChains: [chainId] },
+    });
+    return zerionToTokenBalances(balances.tokens);
+  } catch (error) {
+    console.error("Error fetching Zerion balances:", error);
+    return [];
   }
 }
 
