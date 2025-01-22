@@ -2,7 +2,7 @@ import { isAddress } from "viem";
 import { getTokenInfo } from "./erc20";
 import { type TokenInfo } from "./types";
 
-type SymbolMapping = Record<string, TokenInfo>;
+type SymbolMapping = Record<string, TokenInfo | undefined>;
 type ChainId = number;
 export type BlockchainMapping = Record<ChainId, SymbolMapping>;
 
@@ -36,7 +36,7 @@ export async function getTokenDetails(
   chainId: number,
   symbolOrAddress: string,
   tokenMap?: BlockchainMapping,
-): Promise<TokenInfo> {
+): Promise<TokenInfo | undefined> {
   if (isAddress(symbolOrAddress, { strict: false })) {
     return getTokenInfo(chainId, symbolOrAddress);
   }
