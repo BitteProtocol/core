@@ -12,4 +12,9 @@ describe("getTokenDetails", () => {
     );
     expect(tokenDetails).toBeDefined();
   });
+
+  it("should return the token details for a given symbol", async () => {
+    const tokenDetails = await getTokenDetails(43114, "UNI");
+    expect(tokenDetails).toBeUndefined();
+  });
 });
