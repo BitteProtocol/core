@@ -1,4 +1,3 @@
-// static json<JsonBody>(body: JsonBody, init?: ResponseInit): NextResponse<JsonBody>;
 
 import { SignRequestData } from "near-safe";
 import { errorString } from "./error";
