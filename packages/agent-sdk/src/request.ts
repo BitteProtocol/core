@@ -1,4 +1,3 @@
-
 import { SignRequestData } from "near-safe";
 import { errorString } from "./error";
 
