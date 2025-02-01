@@ -1,5 +1,9 @@
 import { zeroAddress } from "viem";
-import { getSafeBalances, flatSafeBalances } from "../../src";
+import {
+  getSafeBalances,
+  flatSafeBalances,
+  zerionToTokenBalance,
+} from "../../src";
 describe("getSafeBalances", () => {
   const originalWarn = console.warn;
 
@@ -15,6 +19,37 @@ describe("getSafeBalances", () => {
 
   it("should throw error for unsupported chain ID", async () => {
     await expect(getSafeBalances(999, zeroAddress)).resolves.toEqual([]);
+  });
+
+  it("should throw error for unsupported chain ID", () => {
+    expect(
+      zerionToTokenBalance({
+        chain: {
+          chainName: "",
+        },
+        balances: {
+          balance: 2.22047152096e-16,
+          usdBalance: 0,
+        },
+        meta: {
+          name: "",
+          symbol: "",
+          decimals: 0,
+          isSpam: false,
+        },
+      }),
+    ).toEqual({
+      balance: "0",
+      fiatBalance: "0.00",
+      fiatConversion: "0.00",
+      token: {
+        decimals: 0,
+        logoUri: "",
+        name: "",
+        symbol: "",
+      },
+      tokenAddress: null,
+    });
   });
 
   it.skip("should fetch balances for Arbitrum", async () => {
