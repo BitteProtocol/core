@@ -128,7 +128,7 @@ export async function flatSafeBalances(
 }
 
 // TODO(bh2smith): Move this into Zerion SDK
-function zerionToTokenBalance(userToken: UserToken): TokenBalance {
+export function zerionToTokenBalance(userToken: UserToken): TokenBalance {
   const { meta, balances } = userToken;
   return {
     tokenAddress: meta.contractAddress || null,
@@ -138,7 +138,7 @@ function zerionToTokenBalance(userToken: UserToken): TokenBalance {
       decimals: meta.decimals,
       logoUri: meta.tokenIcon || "",
     },
-    balance: parseUnits(balances.balance.toString(), meta.decimals).toString(), // Convert number to string
+    balance: parseUnits(balances.balance.toFixed(), meta.decimals).toString(), // Convert number to string
     fiatBalance: balances.usdBalance.toFixed(2),
     fiatConversion: (balances.price || 0).toFixed(2),
   };
