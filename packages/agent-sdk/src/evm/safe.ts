@@ -138,7 +138,7 @@ export function zerionToTokenBalance(userToken: UserToken): TokenBalance {
       decimals: meta.decimals,
       logoUri: meta.tokenIcon || "",
     },
-    balance: parseUnits(balances.balance.toFixed(), meta.decimals).toString(), // Convert number to string
+    balance: parseUnits(balances.balance.toFixed(15), meta.decimals).toString(), // Convert number to string
     fiatBalance: balances.usdBalance.toFixed(2),
     fiatConversion: (balances.price || 0).toFixed(2),
   };
