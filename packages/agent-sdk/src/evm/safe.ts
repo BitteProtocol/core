@@ -1,5 +1,6 @@
 import { type Address, checksumAddress, parseUnits } from "viem";
 import { type UserToken, ZerionAPI } from "zerion-sdk";
+import { scientificToDecimal } from "../misc";
 
 export interface TokenBalance {
   tokenAddress: string | null; // null for native token
@@ -103,6 +104,7 @@ async function getZerionBalances(
     const balances = await zerion.ui.getUserBalances(address, {
       options: { supportedChains: [chainId] },
     });
+    console.log("BERLENCES", balances);
     return zerionToTokenBalances(balances.tokens);
   } catch (error) {
     console.error("Error fetching Zerion balances:", error);
@@ -138,7 +140,10 @@ export function zerionToTokenBalance(userToken: UserToken): TokenBalance {
       decimals: meta.decimals,
       logoUri: meta.tokenIcon || "",
     },
-    balance: parseUnits(balances.balance.toFixed(), meta.decimals).toString(), // Convert number to string
+    balance: parseUnits(
+      scientificToDecimal(balances.balance),
+      meta.decimals,
+    ).toString(),
     fiatBalance: balances.usdBalance.toFixed(2),
     fiatConversion: (balances.price || 0).toFixed(2),
   };
