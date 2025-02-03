@@ -21,7 +21,7 @@ describe("getSafeBalances", () => {
     await expect(getSafeBalances(999, zeroAddress)).resolves.toEqual([]);
   });
 
-  it("should throw error for unsupported chain ID", () => {
+  it("zerionToTokenBalance should transform scientific notation balance", () => {
     expect(
       zerionToTokenBalance({
         chain: {
@@ -29,21 +29,21 @@ describe("getSafeBalances", () => {
         },
         balances: {
           balance: 2.22047152096e-16,
-          usdBalance: 0,
+          usdBalance: 0.055010660585543,
         },
         meta: {
           name: "",
           symbol: "",
-          decimals: 0,
+          decimals: 18,
           isSpam: false,
         },
       }),
     ).toEqual({
-      balance: "0",
-      fiatBalance: "0.00",
+      balance: "222",
+      fiatBalance: "0.06",
       fiatConversion: "0.00",
       token: {
-        decimals: 0,
+        decimals: 18,
         logoUri: "",
         name: "",
         symbol: "",
