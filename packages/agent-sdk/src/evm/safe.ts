@@ -104,7 +104,6 @@ async function getZerionBalances(
     const balances = await zerion.ui.getUserBalances(address, {
       options: { supportedChains: [chainId] },
     });
-    console.log("BERLENCES", balances);
     return zerionToTokenBalances(balances.tokens);
   } catch (error) {
     console.error("Error fetching Zerion balances:", error);
