@@ -103,7 +103,6 @@ describe("getSafeBalances", () => {
       1,
       "0x54F08c27e75BeA0cdDdb8aA9D69FD61551B19BbA",
     );
-    console.log(result);
     expect(result).toEqual({
       balances: [
         {

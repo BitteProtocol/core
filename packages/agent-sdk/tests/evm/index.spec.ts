@@ -3,28 +3,44 @@ import {
   fallbackResponder,
   validateRequest,
 } from "../../src/evm";
-import { zeroAddress } from "viem";
+import { getAddress, zeroAddress } from "viem";
 import { NextRequest, NextResponse } from "next/server";
 import type { BaseRequest } from "../../src/evm";
+import { hexifyValue } from "../../src/evm";
 
-// Mock external dependencies
-jest.mock("viem", () => ({
-  getAddress: jest.fn().mockImplementation((address) => address),
-  zeroAddress: "0x0000000000000000000000000000000000000000",
-}));
+const address = (i: number): `0x${string}` =>
+  getAddress(`0x${i.toString(16).padStart(40, "0")}`);
+
+const to = address(123);
+const from = address(456);
 
 jest.mock("near-safe", () => ({
   NearSafe: {
     create: jest.fn().mockImplementation(async () => ({
-      address: "0x123",
+      address: to,
     })),
   },
 }));
 
 describe("evm/index", () => {
+  describe("hexifyValue", () => {
+    it("does the thing", () => {
+      expect(hexifyValue("0x00")).toEqual("0x00");
+
+      expect(hexifyValue("0")).toEqual("0x00");
+      expect(hexifyValue("1")).toEqual("0x01");
+      expect(hexifyValue("15")).toEqual("0x0f");
+      expect(hexifyValue("16")).toEqual("0x10");
+      expect(hexifyValue("17")).toEqual("0x11");
+      expect(hexifyValue("255")).toEqual("0xff");
+      expect(hexifyValue("256")).toEqual("0x0100");
+      expect(hexifyValue("257")).toEqual("0x0101");
+      expect(hexifyValue("256")).toEqual("0x0100");
+    });
+  });
   describe("signRequestFor", () => {
     it("creates a sign request with default from address", () => {
-      const metaTransactions = [{ to: "0x123", value: "0x0", data: "0xabc" }];
+      const metaTransactions = [{ to, value: "0x00", data: "0xabc" }];
 
       const result = signRequestFor({
         chainId: 1,
@@ -37,8 +53,8 @@ describe("evm/index", () => {
         params: [
           {
             from: zeroAddress,
-            to: "0x123",
-            value: "0x0",
+            to,
+            value: "0x00",
             data: "0xabc",
           },
         ],
@@ -46,10 +62,10 @@ describe("evm/index", () => {
     });
 
     it("creates a sign request with specified from address", () => {
-      const metaTransactions = [{ to: "0x123", value: "0x0", data: "0xabc" }];
+      const metaTransactions = [{ to, value: "0x0", data: "0xabc" }];
 
       const result = signRequestFor({
-        from: "0x456",
+        from,
         chainId: 1,
         metaTransactions,
       });
@@ -59,8 +75,8 @@ describe("evm/index", () => {
         chainId: 1,
         params: [
           {
-            from: "0x456",
-            to: "0x123",
+            from,
+            to,
             value: "0x0",
             data: "0xabc",
           },
@@ -132,7 +148,7 @@ describe("evm/index", () => {
         headers: {
           get: jest.fn().mockReturnValue(
             JSON.stringify({
-              evmAddress: "0x123",
+              evmAddress: address(123),
             }),
           ),
         },

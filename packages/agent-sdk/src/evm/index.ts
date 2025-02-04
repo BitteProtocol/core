@@ -1,12 +1,20 @@
 import type { MetaTransaction, SignRequestData } from "near-safe";
 import { NearSafe } from "near-safe";
-import { getAddress, type Hex, zeroAddress, type Address } from "viem";
+import { getAddress, zeroAddress, isHex, toHex, toBytes } from "viem";
+import type { Address, Hex } from "viem";
 
 export * from "./types";
 export * from "./erc20";
 export * from "./weth";
 export * from "./tokens";
 export * from "./safe";
+
+export function hexifyValue(value: string): Hex {
+  if (isHex(value)) {
+    return value;
+  }
+  return toHex(toBytes(BigInt(value)));
+}
 
 export function signRequestFor({
   from,
@@ -20,12 +28,14 @@ export function signRequestFor({
   return {
     method: "eth_sendTransaction",
     chainId,
-    params: metaTransactions.map((mt) => ({
-      from: from ?? zeroAddress,
-      to: getAddress(mt.to),
-      value: mt.value as Hex,
-      data: mt.data as Hex,
-    })),
+    params: metaTransactions.map((mt) => {
+      return {
+        from: from ?? zeroAddress,
+        to: getAddress(mt.to),
+        value: hexifyValue(mt.value),
+        data: mt.data as Hex,
+      };
+    }),
   };
 }
 

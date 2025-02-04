@@ -41,12 +41,8 @@ export async function getTokenDetails(
     return getTokenInfo(chainId, symbolOrAddress);
   }
   if (!tokenMap) {
-    console.log(
-      "Loading TokenMap... this should be stored in memory consider setting it with loadTokenMap() in your app and passing it here.",
-    );
     tokenMap = await loadTokenMap();
   }
-  console.log("Seeking TokenMap for Symbol", symbolOrAddress);
   // TokenMap has lower cased (sanitized) symbols
   return tokenMap[chainId][symbolOrAddress.toLowerCase()];
 }
