@@ -13,7 +13,6 @@ export async function handleRequest<X, T, R>(
 ): Promise<R> {
   try {
     const result = await logic(input);
-    console.log("Responding with", JSON.stringify(result, null, 2));
     return responseTransformer(result);
   } catch (err: unknown) {
     const message = errorString(err);

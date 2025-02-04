@@ -3,20 +3,22 @@ import {
   fallbackResponder,
   validateRequest,
 } from "../../src/evm";
-import { zeroAddress } from "viem";
+import { getAddress, zeroAddress } from "viem";
 import { NextRequest, NextResponse } from "next/server";
 import type { BaseRequest } from "../../src/evm";
 
-// Mock external dependencies
-jest.mock("viem", () => ({
-  getAddress: jest.fn().mockImplementation((address) => address),
-  zeroAddress: "0x0000000000000000000000000000000000000000",
-}));
+
+
+const address = (i: number): `0x${string}` =>
+  getAddress(`0x${i.toString(16).padStart(40, "0")}`);
+
+const to = address(123);
+const from = address(456);
 
 jest.mock("near-safe", () => ({
   NearSafe: {
     create: jest.fn().mockImplementation(async () => ({
-      address: "0x123",
+      address: to,
     })),
   },
 }));
@@ -24,7 +26,7 @@ jest.mock("near-safe", () => ({
 describe("evm/index", () => {
   describe("signRequestFor", () => {
     it("creates a sign request with default from address", () => {
-      const metaTransactions = [{ to: "0x123", value: "0x0", data: "0xabc" }];
+      const metaTransactions = [{ to, value: "0x00", data: "0xabc" }];
 
       const result = signRequestFor({
         chainId: 1,
@@ -37,8 +39,8 @@ describe("evm/index", () => {
         params: [
           {
             from: zeroAddress,
-            to: "0x123",
-            value: "0x0",
+            to,
+            value: "0x00",
             data: "0xabc",
           },
         ],
@@ -46,10 +48,10 @@ describe("evm/index", () => {
     });
 
     it("creates a sign request with specified from address", () => {
-      const metaTransactions = [{ to: "0x123", value: "0x0", data: "0xabc" }];
+      const metaTransactions = [{ to, value: "0x0", data: "0xabc" }];
 
       const result = signRequestFor({
-        from: "0x456",
+        from,
         chainId: 1,
         metaTransactions,
       });
@@ -59,13 +61,35 @@ describe("evm/index", () => {
         chainId: 1,
         params: [
           {
-            from: "0x456",
-            to: "0x123",
+            from,
+            to,
             value: "0x0",
             data: "0xabc",
           },
         ],
       });
+    });
+    it("parses Hex and non-hex value fields", () => {
+      const hexValue = "0x0";
+      const input = {
+        chainId: 1,
+        metaTransactions: [{ to: address(123), value: hexValue, data: "0xabc" }],
+      };
+      expect(signRequestFor(input).params).toEqual([
+        {
+          ...input.metaTransactions[0],
+          from: zeroAddress,
+        },
+      ]);
+      input.metaTransactions[0].value = "16";
+
+      expect(signRequestFor(input).params).toEqual([
+        {
+          ...input.metaTransactions[0],
+          from: zeroAddress,
+          value: "0x10",
+        },
+      ]);
     });
   });
 
@@ -132,7 +156,7 @@ describe("evm/index", () => {
         headers: {
           get: jest.fn().mockReturnValue(
             JSON.stringify({
-              evmAddress: "0x123",
+              evmAddress: address(123),
             }),
           ),
         },

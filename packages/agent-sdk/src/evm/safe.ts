@@ -54,7 +54,6 @@ export async function getSafeBalances(
   zerionKey?: string,
 ): Promise<TokenBalance[]> {
   const baseUrl = safeTxServiceUrlFor(chainId);
-  console.log(baseUrl);
   if (!baseUrl) {
     console.warn(
       `Chain ID ${chainId} not supported by Safe Transaction Service`,
@@ -66,7 +65,6 @@ export async function getSafeBalances(
   const url = `${baseUrl}/api/v1/safes/${checksumAddress(address)}/balances/?trusted=${trusted}&exclude_spam=${exclude_spam}`;
 
   try {
-    console.log(`Fetching Safe balances for ${address} from ${url}`);
     const response = await fetch(url, {
       headers: {
         accept: "application/json",
@@ -79,7 +77,6 @@ export async function getSafeBalances(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data: TokenBalance[] = await response.json();
-    console.log(`Retrieved ${data.length} balances`);
     return data;
   } catch (error) {
     console.warn("Error fetching Safe balances:", error);
