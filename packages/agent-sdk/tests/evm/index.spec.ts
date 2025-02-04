@@ -7,8 +7,6 @@ import { getAddress, zeroAddress } from "viem";
 import { NextRequest, NextResponse } from "next/server";
 import type { BaseRequest } from "../../src/evm";
 
-
-
 const address = (i: number): `0x${string}` =>
   getAddress(`0x${i.toString(16).padStart(40, "0")}`);
 
@@ -73,7 +71,9 @@ describe("evm/index", () => {
       const hexValue = "0x0";
       const input = {
         chainId: 1,
-        metaTransactions: [{ to: address(123), value: hexValue, data: "0xabc" }],
+        metaTransactions: [
+          { to: address(123), value: hexValue, data: "0xabc" },
+        ],
       };
       expect(signRequestFor(input).params).toEqual([
         {
