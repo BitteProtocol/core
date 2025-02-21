@@ -32,8 +32,8 @@
     "build:cjs": "tsc -p tsconfig.cjs.json"
   },
   "dependencies": {
-    "viem": "^2.22.21",
-    "near-safe": "^0.9.10",
-    "zerion-sdk": "^0.0.13"
+    "viem": "^2.23.4",
+    "near-safe": "^0.9.11",
+    "zerion-sdk": "^0.1.0"
   }
 }
