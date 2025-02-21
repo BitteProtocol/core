@@ -3,6 +3,7 @@ import { encodeFunctionData, type Address } from "viem";
 import { getClient, type MetaTransaction } from "near-safe";
 import type { TokenInfo } from "./types";
 
+const NATIVE_ASSET = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
 const MAX_APPROVAL = BigInt(
   "115792089237316195423570985008687907853269984665640564039457584007913129639935",
 );
@@ -60,6 +61,15 @@ export async function getTokenInfo(
   chainId: number,
   address: Address,
 ): Promise<TokenInfo> {
+  if (address.toLowerCase() === NATIVE_ASSET.toLowerCase()) {
+    return {
+      address: NATIVE_ASSET,
+      decimals: 18,
+      // Not all Native Assets are ETH, but enough are.
+      symbol: "ETH",
+    };
+  }
+
   const [decimals, symbol] = await Promise.all([
     getTokenDecimals(chainId, address),
     getTokenSymbol(chainId, address),
