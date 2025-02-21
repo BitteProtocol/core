@@ -61,7 +61,7 @@ export async function getTokenInfo(
   chainId: number,
   address: Address,
 ): Promise<TokenInfo> {
-  if (address === NATIVE_ASSET) {
+  if (address.toLowerCase() === NATIVE_ASSET.toLowerCase()) {
     return {
       address: NATIVE_ASSET,
       decimals: 18,
