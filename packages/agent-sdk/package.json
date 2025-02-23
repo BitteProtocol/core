@@ -27,7 +27,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "build": "rm -fr dist/* && bun build:esm && bun build:cjs",
+    "build": "rm -fr dist/* && pnpm build:esm && pnpm build:cjs",
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:cjs": "tsc -p tsconfig.cjs.json"
   },
