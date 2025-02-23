@@ -15,27 +15,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache Bun dependencies
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Cache pnpm dependencies
         uses: actions/cache@v4
         with:
           path: |
-            ~/.bun/install/cache
+            ~/.pnpm-store
             node_modules
             packages/*/node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-bun-
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
+            ${{ runner.os }}-pnpm-
 
       - name: Install Dependencies
-        run: bun install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Lint & Build
         run: |
-          bun lint
-          bun run test
-          bun run build
+          pnpm lint
+          pnpm run test
+          pnpm run build
