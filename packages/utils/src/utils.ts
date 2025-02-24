@@ -10,7 +10,7 @@ export async function fetchSpecWithRetry(
   url: string,
   options: RequestInit = {},
   retries = MAX_RETRIES,
-  delay = INITIAL_DELAY
+  delay = INITIAL_DELAY,
 ): Promise<string> {
   try {
     const response = await fetch(url, options);
@@ -29,7 +29,7 @@ export async function fetchSpecWithRetry(
   } catch (error) {
     if (retries > 0) {
       console.log(
-        `Retry attempt ${MAX_RETRIES - retries + 1} of ${MAX_RETRIES}`
+        `Retry attempt ${MAX_RETRIES - retries + 1} of ${MAX_RETRIES}`,
       );
 
       // Wait with exponential backoff
@@ -40,7 +40,7 @@ export async function fetchSpecWithRetry(
         url,
         options,
         retries - 1,
-        delay * BACKOFF_FACTOR
+        delay * BACKOFF_FACTOR,
       );
     }
 
@@ -49,7 +49,7 @@ export async function fetchSpecWithRetry(
 
     // Add more context to the error
     throw new Error(
-      `Failed to fetch ${url} after ${MAX_RETRIES} retries: ${errorMessage}`
+      `Failed to fetch ${url} after ${MAX_RETRIES} retries: ${errorMessage}`,
     );
   }
 }
@@ -95,5 +95,5 @@ export const formatOpenAPIError = (error: ErrorObject): string => {
  * Format a list of OpenAPI errors into a human-readable string.
  */
 export const formatOpenAPIErrors = (errors: ErrorObject[]): string => {
-  return errors.map(error => formatOpenAPIError(error)).join("\n");
+  return errors.map((error) => formatOpenAPIError(error)).join("\n");
 };

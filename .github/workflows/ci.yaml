@@ -2,40 +2,40 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  build:
+  test:
+    name: "Test"
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Cache Bun dependencies
-        uses: actions/cache@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: |
-            ~/.bun/install/cache
-            node_modules
-            packages/*/node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-
+          version: 9.12.3
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          bun-version: latest
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
 
-      - name: Install Dependencies
-        run: bun install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Lint & Build
-        run: |
-          bun lint
-          bun run test
-          bun run build
+      - name: Run lint
+        run: pnpm lint
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build

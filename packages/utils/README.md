@@ -26,47 +26,49 @@ pnpm add bitte-ai-spec
 ### Basic Validation
 
 ```typescript
-import { validateBittePluginSpec } from 'bitte-ai-spec';
+import { validateBittePluginSpec } from "bitte-ai-spec";
 
 // Validate an OpenAPI spec
 const result = await validateBittePluginSpec(spec);
 if (result.valid) {
-  console.log('Spec is valid!', result.schema);
+  console.log("Spec is valid!", result.schema);
 } else {
-  console.error('Validation failed:', result.errorMessage);
+  console.error("Validation failed:", result.errorMessage);
 }
 ```
 
 ### Using Types
 
 ```typescript
-import { BitteOpenAPISpec, BitteExtensionSchema } from 'bitte-ai-spec';
+import { BitteOpenAPISpec, BitteExtensionSchema } from "bitte-ai-spec";
 
 // Type your OpenAPI spec
 const mySpec: BitteOpenAPISpec = {
   openapi: "3.0.0",
   info: {
     title: "My API",
-    version: "1.0.0"
+    version: "1.0.0",
   },
   paths: {},
   "x-mb": {
     assistant: {
       name: "My Assistant",
       description: "An AI assistant",
-      instructions: "Help users with tasks"
-    }
-  }
+      instructions: "Help users with tasks",
+    },
+  },
 };
 ```
 
 ### Fetching Remote Specs
 
 ```typescript
-import { fetchSpecWithRetry } from 'bitte-ai-spec';
+import { fetchSpecWithRetry } from "bitte-ai-spec";
 
 // Fetch a remote spec with retry logic
-const specContent = await fetchSpecWithRetry('https://api.example.com/openapi.json');
+const specContent = await fetchSpecWithRetry(
+  "https://api.example.com/openapi.json",
+);
 ```
 
 ## API Reference

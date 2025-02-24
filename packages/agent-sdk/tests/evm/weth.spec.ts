@@ -8,8 +8,8 @@ import {
 } from "../../src/evm/weth";
 
 // Mock the external dependencies
-jest.mock("../../src", () => ({
-  signRequestFor: jest.fn().mockImplementation((args) => args),
+vi.mock("../../src", () => ({
+  signRequestFor: vi.fn().mockImplementation((args) => args),
 }));
 
 describe("evm/weth", () => {
@@ -119,7 +119,7 @@ describe("evm/weth", () => {
 
     it("throws error for chain without wrapped address", () => {
       // Mock a network without wrapped address
-      jest.spyOn(Network, "fromChainId").mockImplementationOnce(
+      vi.spyOn(Network, "fromChainId").mockImplementationOnce(
         () =>
           ({
             name: "TestNet",
