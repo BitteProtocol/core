@@ -1,0 +1,15 @@
+{
+  "name": "eslint-config-bitte",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

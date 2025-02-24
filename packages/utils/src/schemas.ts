@@ -1,8 +1,4 @@
-import type {
-  IJsonSchema,
-  OpenAPIV3,
-  OpenAPIV3_1,
-} from "openapi-types";
+import type { IJsonSchema, OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
 import { z } from "zod";
 
 /**
@@ -23,7 +19,7 @@ export const bittePrimitiveToolNamesZodSchema = z.enum([
   "render-chart",
   "share-twitter",
   "sign-message",
-])
+]);
 
 export const openApiVersionZodSchema = z.union([
   z.literal("3.0.0"),
@@ -33,10 +29,9 @@ export const openApiVersionZodSchema = z.union([
   z.literal("3.0.4"),
   z.literal("3.1.0"),
   z.literal("3.1.1"),
-])
+]);
 
 export type OpenApiVersion = z.infer<typeof openApiVersionZodSchema>;
-
 
 /**
  * Zod schema for the "x-mb" extension as used at runtime
@@ -50,7 +45,9 @@ export const bitteExtensionZodSchema = z.object({
     description: z.string(),
     instructions: z.string(),
     image: z.string().optional(),
-    tools: z.array(z.object({ type: bittePrimitiveToolNamesZodSchema })).optional(),
+    tools: z
+      .array(z.object({ type: bittePrimitiveToolNamesZodSchema }))
+      .optional(),
     categories: z.array(z.string()).optional(),
     chainIds: z.array(z.number()).optional(),
     version: z.string().optional(),
@@ -58,22 +55,25 @@ export const bitteExtensionZodSchema = z.object({
   }),
 });
 
-
-
 /**
  * A specialized OpenAPI.Document type that *must* have "x-mb" as an extension,
  * typed as `BitteExtensionSchema`. Allows OpenAPI v3.0 or v3.1 specs.
  */
-export type BitteOpenAPISpec = (NonNullable<OpenAPIV3_1.Document> | NonNullable<OpenAPIV3.Document>) & {
+export type BitteOpenAPISpec = (
+  | NonNullable<OpenAPIV3_1.Document>
+  | NonNullable<OpenAPIV3.Document>
+) & {
   openapi: OpenApiVersion;
   [xMbKey]: BitteExtensionSchema;
-}
+};
 
 /**
  * Zod schema for an entire OpenAPI + "x-mb" extension object.
  * Uses `extensionZodSchema` nested under the "x-mb" key.
  */
-export const bitteOpenAPISpecZodSchema: z.ZodType<BitteOpenAPISpec & { paths: OpenAPIV3.PathsObject }> = z.object({
+export const bitteOpenAPISpecZodSchema: z.ZodType<
+  BitteOpenAPISpec & { paths: OpenAPIV3.PathsObject }
+> = z.object({
   openapi: openApiVersionZodSchema,
   info: z.object({
     title: z.string().describe("The title of the API"),
@@ -86,7 +86,9 @@ export const bitteOpenAPISpecZodSchema: z.ZodType<BitteOpenAPISpec & { paths: Op
       })
       .optional(),
   }),
-  paths: z.record(z.string(), z.record(z.string(), z.any())).describe("The paths of the API"),
+  paths: z
+    .record(z.string(), z.record(z.string(), z.any()))
+    .describe("The paths of the API"),
   // Use xMbKey in bracket notation to assign `extensionZodSchema`
   [xMbKey]: bitteExtensionZodSchema,
   servers: z
@@ -94,7 +96,7 @@ export const bitteOpenAPISpecZodSchema: z.ZodType<BitteOpenAPISpec & { paths: Op
       z.object({
         url: z.string().describe("The URL of the server"),
         description: z.string().optional(),
-      })
+      }),
     )
     .optional(),
 });
@@ -240,15 +242,17 @@ export const EXAMPLE_BITTE_SPEC: BitteOpenAPISpec = {
     email: "example@example.com",
     assistant: {
       name: "Example Agent",
-      description: "An example agent using the Bitte OpenAPI Agent Specification",
-      instructions: "This agent can generate EVM transactions and generate images",
+      description:
+        "An example agent using the Bitte OpenAPI Agent Specification",
+      instructions:
+        "This agent can generate EVM transactions and generate images",
       tools: [{ type: "generate-evm-tx" }, { type: "generate-image" }],
       categories: ["evm", "image"],
       chainIds: [1, 137],
       version: "1.0.0",
       repo: "https://github.com/BitteProtocol/agent-next-boilerplate",
       image: "https://example.com/example-agent.png",
-    }
+    },
   },
   servers: [
     {

@@ -1,6 +1,10 @@
-import { bittePrimitiveToolNamesZodSchema, type BitteExtensionSchema, type BitteOpenAPISpec } from "../schemas.js";
-import { validateBittePluginSpec } from "../validation.js";
-import cowSpec from "./cow_spec.json"
+import {
+  bittePrimitiveToolNamesZodSchema,
+  type BitteExtensionSchema,
+  type BitteOpenAPISpec,
+} from "../src/schemas.js";
+import { validateBittePluginSpec } from "../src/validation.js";
+import cowSpec from "./cow_spec.json";
 
 const bittePrimitiveOptionsString =
   bittePrimitiveToolNamesZodSchema.options.join("' | '");
@@ -39,7 +43,7 @@ describe("src/config", () => {
       valid: true,
     });
 
-    spec["x-mb"].assistant = assistant as BitteExtensionSchema["assistant"]
+    spec["x-mb"].assistant = assistant as BitteExtensionSchema["assistant"];
     await expect(validateBittePluginSpec(spec)).resolves.toMatchObject({
       valid: false,
       errorMessage: "Missing field x-mb.assistant.name expected string",

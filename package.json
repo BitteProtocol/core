@@ -1,32 +1,53 @@
 {
-  "name": "@bitte/core",
-  "version": "1.0.0",
+  "name": "bitte-core",
   "private": true,
-  "packageManager": "pnpm@9.14.2",
-  "workspaces": [
-    "packages/*"
-  ],
-  "type": "module",
   "scripts": {
-    "build": "pnpm run --filter agent-sdk build",
-    "tokenMap": "pnpm run scripts/genTokenMap.ts",
-    "lint": "prettier --check {scripts,packages}/**/* && eslint packages/",
-    "fmt": "prettier --write {scripts,packages}/**/* && eslint packages/ --fix",
-    "test": "jest"
+    "build": "turbo build",
+    "clean": "turbo clean",
+    "lint": "turbo lint",
+    "prepare": "husky install",
+    "prettier-check": "prettier --check \"**/*.{js,ts,tsx,md,mdx}\"",
+    "prettier-fix": "prettier --write \"**/*.{js,ts,tsx,md,mdx}\"",
+    "type-check": "turbo type-check",
+    "publint": "turbo publint",
+    "test": "turbo test",
+    "ci:release": "turbo clean && turbo build && pnpm publish"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --ignore-unknown --write"
+    ]
   },
   "devDependencies": {
     "@duneanalytics/client-sdk": "^0.2.5",
-    "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.24.1",
     "@typescript-eslint/parser": "^8.24.1",
+    "@babel/preset-env": "^7.26.9",
+    "eslint": "8.57.1",
+    "eslint-config-bitte": "workspace:*",
+    "publint": "0.3.6",
     "csv-parser": "^3.2.0",
     "dotenv": "^16.4.7",
-    "eslint": "^9.20.1",
-    "jest": "^29.7.0",
-    "next": "^15.1.7",
-    "prettier": "^3.5.1",
-    "ts-jest": "^29.2.5",
+    "vitest": "3.0.6",
+    "husky": "^8.0.0",
+    "lint-staged": "15.2.10",
+    "prettier": "^3.5.2",
     "typescript": "^5.7.3",
-    "viem": "^2.23.4"
+    "turbo": "2.3.3",
+    "viem": "^2.23.5"
+  },
+  "engines": {
+    "node": "^18.0.0 || ^20.0.0 || ^22.0.0"
+  },
+  "homepage": "https://bitte.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitteProtocol/core.git"
+  },
+  "packageManager": "pnpm@9.15.2",
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": false
   }
 }
