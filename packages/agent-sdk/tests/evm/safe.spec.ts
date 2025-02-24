@@ -9,7 +9,7 @@ describe("getSafeBalances", () => {
 
   beforeEach(() => {
     // Mock console.warn before each test
-    console.warn = jest.fn();
+    console.warn = vi.fn();
   });
 
   afterEach(() => {

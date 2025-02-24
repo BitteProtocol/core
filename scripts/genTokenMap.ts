@@ -1,11 +1,11 @@
+import { DuneClient } from "@duneanalytics/client-sdk";
 import csv from "csv-parser";
 import dotenv from "dotenv";
-import * as fs from "fs";
-import path from "path";
+import { writeFileSync } from "node:fs";
+import path from "node:path";
 import { getAddress } from "viem";
-import { BlockchainMapping } from "../packages/agent-sdk/src";
 
-import { DuneClient } from "@duneanalytics/client-sdk";
+import { BlockchainMapping } from "../packages/agent-sdk/src";
 
 // Add this interface near the top of the file
 interface TokenRow {
@@ -33,7 +33,7 @@ async function generateTokenMapJson(
   const tokenMap = await loadTokenMapping(csv.data);
   const outputFile = path.join(process.cwd(), "public", "tokenMap.json");
 
-  fs.writeFileSync(outputFile, JSON.stringify(tokenMap, null, 2));
+  writeFileSync(outputFile, JSON.stringify(tokenMap, null, 2));
   console.log("Token map JSON generated at:", outputFile);
 }
 

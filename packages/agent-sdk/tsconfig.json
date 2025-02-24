@@ -1,30 +1,5 @@
 {
-  "compilerOptions": {
-    "target": "ES2020",
-    "moduleDetection": "force",
-
-    // Bundler mode
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    // "allowImportingTsExtensions": true,
-    // "noEmit": true,
-
-    // Output options for building the library
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "dist",
-
-    // Best practices
-    "strict": true,
-    "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true,
-
-    // Some stricter flags (disabled by default)
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noPropertyAccessFromIndexSignature": false
-  },
-  "include": ["src/index.ts", "src/**/*"],
-  "exclude": ["node_modules", "dist", "examples"]
+  "extends": "./node_modules/@bitte/ai-tsconfig/ts-library.json",
+  "include": [".", ".eslintrs.js"],
+  "exclude": ["*/dist", "dist", "build", "node_modules", "examples"]
 }

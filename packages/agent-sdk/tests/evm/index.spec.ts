@@ -4,7 +4,6 @@ import {
   validateRequest,
 } from "../../src/evm";
 import { getAddress, zeroAddress } from "viem";
-import { NextRequest, NextResponse } from "next/server";
 import type { BaseRequest } from "../../src/evm";
 import { hexifyValue } from "../../src/evm";
 
@@ -14,9 +13,9 @@ const address = (i: number): `0x${string}` =>
 const to = address(123);
 const from = address(456);
 
-jest.mock("near-safe", () => ({
+vi.mock("near-safe", () => ({
   NearSafe: {
-    create: jest.fn().mockImplementation(async () => ({
+    create: vi.fn().mockImplementation(async () => ({
       address: to,
     })),
   },
@@ -111,7 +110,7 @@ describe("evm/index", () => {
     it("returns error response for missing accountId and evmAddress", async () => {
       const req = {
         headers: {
-          get: jest.fn().mockReturnValue("{}"),
+          get: vi.fn().mockReturnValue("{}"),
         },
       } as BaseRequest;
 
@@ -131,7 +130,7 @@ describe("evm/index", () => {
     it("returns null for valid request with accountId", async () => {
       const req = {
         headers: {
-          get: jest.fn().mockReturnValue(
+          get: vi.fn().mockReturnValue(
             JSON.stringify({
               accountId: "testAccount",
             }),
@@ -146,7 +145,7 @@ describe("evm/index", () => {
     it("returns null for valid request with evmAddress", async () => {
       const req = {
         headers: {
-          get: jest.fn().mockReturnValue(
+          get: vi.fn().mockReturnValue(
             JSON.stringify({
               evmAddress: address(123),
             }),
@@ -161,7 +160,7 @@ describe("evm/index", () => {
 
   describe("validateNextRequest", () => {
     it("should validate a real request", async () => {
-      const request = new NextRequest(
+      const request = new Request(
         new Request("https://example.com", {
           method: "POST",
           headers: new Headers({
@@ -182,12 +181,12 @@ describe("evm/index", () => {
 
 // TODO: Use in Next Agents.
 export async function validateNextRequest(
-  req: NextRequest,
-): Promise<NextResponse | null> {
-  const result = await validateRequest<NextRequest, NextResponse>(
+  req: Request,
+): Promise<Response | null> {
+  const result = await validateRequest<Request, Response>(
     req,
     (data: unknown, init?: { status?: number }) =>
-      NextResponse.json(data, init),
+      new Response(data as BodyInit | null | undefined, init),
   );
 
   return result;

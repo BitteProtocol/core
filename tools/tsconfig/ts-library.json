@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "TypeScript Library",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "ES2022"
+    ],
+    "module": "ESNext",
+    "target": "ES2022",
+    "resolveJsonModule": true,
+    "stripInternal": true
+  }
+}

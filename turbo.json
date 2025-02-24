@@ -1,0 +1,55 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "CI",
+    "PORT"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "env": [
+        "DUNE_API_KEY"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ]
+    },
+    "type-check": {
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
+    },
+    "publint": {
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
+    },
+    "clean": {
+      "dependsOn": [
+        "^clean"
+      ]
+    },
+    "prettier-check": {},
+    "integration-test": {
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
+    }
+  }
+}

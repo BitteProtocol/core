@@ -10,7 +10,7 @@ import {
 } from "../../src";
 
 // Mock the external dependencies
-jest.mock("near-safe");
+vi.mock("near-safe");
 
 describe("ERC20 Utilities", () => {
   const mockAddress = "0x1234567890123456789012345678901234567890" as Address;
@@ -65,9 +65,11 @@ describe("ERC20 Utilities", () => {
   describe("checkAllowance", () => {
     it("reads allowance correctly", async () => {
       const mockClient = {
-        readContract: jest.fn().mockResolvedValue(BigInt(1000)),
+        readContract: vi.fn().mockResolvedValue(BigInt(1000)),
       };
-      (getClient as jest.Mock).mockReturnValue(mockClient);
+      (getClient as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+        mockClient,
+      );
 
       const result = await checkAllowance(
         mockAddress,
@@ -89,12 +91,12 @@ describe("ERC20 Utilities", () => {
   describe("getTokenInfo", () => {
     it("fetches token info correctly", async () => {
       const mockClient = {
-        readContract: jest
+        readContract: vi
           .fn()
           .mockResolvedValueOnce(18) // decimals
           .mockResolvedValueOnce("TEST"), // symbol
       };
-      (getClient as jest.Mock).mockReturnValue(mockClient);
+      (getClient as ReturnType<typeof vi.fn>).mockReturnValue(mockClient);
 
       const result = await getTokenInfo(mockChainId, mockAddress);
 
@@ -109,9 +111,11 @@ describe("ERC20 Utilities", () => {
   describe("getTokenDecimals", () => {
     it("fetches decimals correctly", async () => {
       const mockClient = {
-        readContract: jest.fn().mockResolvedValue(18),
+        readContract: vi.fn().mockResolvedValue(18),
       };
-      (getClient as jest.Mock).mockReturnValue(mockClient);
+      (getClient as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+        mockClient,
+      );
 
       const result = await getTokenDecimals(mockChainId, mockAddress);
 
@@ -120,9 +124,11 @@ describe("ERC20 Utilities", () => {
 
     it("handles errors appropriately", async () => {
       const mockClient = {
-        readContract: jest.fn().mockRejectedValue(new Error("Test error")),
+        readContract: vi.fn().mockRejectedValue(new Error("Test error")),
       };
-      (getClient as jest.Mock).mockReturnValue(mockClient);
+      (getClient as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+        mockClient,
+      );
 
       await expect(getTokenDecimals(mockChainId, mockAddress)).rejects.toThrow(
         "Error fetching token decimals: Error: Test error",
@@ -133,9 +139,11 @@ describe("ERC20 Utilities", () => {
   describe("getTokenSymbol", () => {
     it("fetches symbol correctly", async () => {
       const mockClient = {
-        readContract: jest.fn().mockResolvedValue("TEST"),
+        readContract: vi.fn().mockResolvedValue("TEST"),
       };
-      (getClient as jest.Mock).mockReturnValue(mockClient);
+      (getClient as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+        mockClient,
+      );
 
       const result = await getTokenSymbol(mockChainId, mockAddress);
 
@@ -144,9 +152,11 @@ describe("ERC20 Utilities", () => {
 
     it("handles errors appropriately", async () => {
       const mockClient = {
-        readContract: jest.fn().mockRejectedValue(new Error("Test error")),
+        readContract: vi.fn().mockRejectedValue(new Error("Test error")),
       };
-      (getClient as jest.Mock).mockReturnValue(mockClient);
+      (getClient as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+        mockClient,
+      );
 
       await expect(getTokenSymbol(mockChainId, mockAddress)).rejects.toThrow(
         "Error fetching token decimals: Error: Test error",
