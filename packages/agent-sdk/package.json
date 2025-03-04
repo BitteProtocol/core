@@ -40,7 +40,7 @@
     "zerion-sdk": "^0.1.0"
   },
   "devDependencies": {
-    "@types/node": "^18",
+    "@types/node": "^20",
     "tsup": "^8.3.6",
     "@bitte/ai-tsconfig": "workspace:*",
     "typescript": "^5.7.3",
