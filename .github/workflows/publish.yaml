@@ -48,7 +48,7 @@ jobs:
 
       - name: Publish with npm
         run: |
-          cd packages/agent-sdk
+          cd packages/agent-sdks
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
