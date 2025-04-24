@@ -40,7 +40,7 @@ jobs:
           set -x  # Show each command as it's run
           VERSION=${GITHUB_REF#refs/tags/v}
           echo "Setting version to $VERSION"
-          npm --loglevel verbose version "$VERSION" --no-git-tag-version
+          pnpm --filter @bitte-ai/agent-sdk version "$VERSION" --no-git-tag-version
         working-directory: packages/agent-sdk
 
       - name: Configure NPM Authentication
