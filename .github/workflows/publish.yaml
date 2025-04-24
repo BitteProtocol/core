@@ -40,11 +40,7 @@ jobs:
           set -x  # Show each command as it's run
           VERSION=${GITHUB_REF#refs/tags/v}
           echo "Setting version to $VERSION"
-          npm version "$VERSION" --no-git-tag-version || {
-            echo "❌ npm version failed, showing log:"
-            cat /home/runner/.npm/_logs/*.log || echo "No log found"
-            exit 1
-          }
+          npm --loglevel verbose version "$VERSION" --no-git-tag-version
         working-directory: packages/agent-sdk
 
       - name: Configure NPM Authentication
