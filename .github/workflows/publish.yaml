@@ -37,11 +37,9 @@ jobs:
 
       - name: Set Version from Tag
         run: |
-          set -x  # Show each command as it's run
           VERSION=${GITHUB_REF#refs/tags/v}
           echo "Setting version to $VERSION"
           pnpm --filter @bitte-ai/agent-sdk version "$VERSION" --no-git-tag-version
-        working-directory: packages/agent-sdk
 
       - name: Configure NPM Authentication
         run: |
@@ -50,7 +48,7 @@ jobs:
 
       - name: Publish with npm
         run: |
-          cd packages/agent-sdks
+          cd packages/agent-sdk
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
