@@ -4,7 +4,6 @@ import {
   validateRequest,
 } from "../../src/evm";
 import { getAddress, zeroAddress } from "viem";
-import { NextRequest, NextResponse } from "next/server";
 import type { BaseRequest } from "../../src/evm";
 import { hexifyValue } from "../../src/evm";
 
@@ -158,37 +157,4 @@ describe("evm/index", () => {
       expect(result).toBeNull();
     });
   });
-
-  describe("validateNextRequest", () => {
-    it("should validate a real request", async () => {
-      const request = new NextRequest(
-        new Request("https://example.com", {
-          method: "POST",
-          headers: new Headers({
-            "mb-metadata": JSON.stringify({
-              accountId: "max-normal.near",
-              evmAddress: zeroAddress,
-            }),
-          }),
-          body: JSON.stringify({ test: "data" }),
-        }),
-      );
-
-      const result = await validateNextRequest(request);
-      expect(result).toBeNull();
-    });
-  });
 });
-
-// TODO: Use in Next Agents.
-export async function validateNextRequest(
-  req: NextRequest,
-): Promise<NextResponse | null> {
-  const result = await validateRequest<NextRequest, NextResponse>(
-    req,
-    (data: unknown, init?: { status?: number }) =>
-      NextResponse.json(data, init),
-  );
-
-  return result;
-}
