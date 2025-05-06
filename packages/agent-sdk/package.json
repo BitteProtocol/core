@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "near-safe": "^0.9.14",
-    "viem": "^2.23.13",
+    "viem": "^2.29.0",
     "zerion-sdk": "^0.1.1"
   }
 }
