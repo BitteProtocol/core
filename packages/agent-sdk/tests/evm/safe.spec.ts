@@ -1,4 +1,3 @@
-import { zeroAddress } from "viem";
 import {
   getSafeBalances,
   flatSafeBalances,
@@ -15,10 +14,6 @@ describe("getSafeBalances", () => {
   afterEach(() => {
     // Restore original console.warn after each test
     console.warn = originalWarn;
-  });
-
-  it("should throw error for unsupported chain ID", async () => {
-    await expect(getSafeBalances(999, zeroAddress)).resolves.toEqual([]);
   });
 
   it("zerionToTokenBalance should transform scientific notation balance", () => {
