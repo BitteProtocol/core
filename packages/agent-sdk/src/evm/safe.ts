@@ -55,7 +55,7 @@ export async function getSafeBalances(
   zerionKey?: string,
 ): Promise<TokenBalance[]> {
   const client = await getClient(chainId);
-  const codeAt = await client.getCode({address});
+  const codeAt = await client.getCode({ address });
   if (!codeAt) {
     // Not a Safe - Get balances from Zerion.
     return getZerionBalances(chainId, address, zerionKey);
