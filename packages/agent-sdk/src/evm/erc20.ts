@@ -1,7 +1,8 @@
 import { erc20Abi } from "viem";
 import { encodeFunctionData, type Address } from "viem";
-import { getClient, type MetaTransaction } from "near-safe";
+import type { MetaTransaction } from "near-safe";
 import type { TokenInfo } from "./types";
+import { getClientForChain } from "./client";
 
 const NATIVE_ASSET = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
 const MAX_APPROVAL = BigInt(
@@ -49,7 +50,7 @@ export async function checkAllowance(
   spender: Address,
   chainId: number,
 ): Promise<bigint> {
-  return getClient(chainId).readContract({
+  return getClientForChain(chainId).readContract({
     address: token,
     abi: erc20Abi,
     functionName: "allowance",
@@ -85,7 +86,7 @@ export async function getTokenDecimals(
   chainId: number,
   address: Address,
 ): Promise<number> {
-  const client = getClient(chainId);
+  const client = getClientForChain(chainId);
   try {
     return await client.readContract({
       address,
@@ -101,7 +102,7 @@ export async function getTokenSymbol(
   chainId: number,
   address: Address,
 ): Promise<string> {
-  const client = getClient(chainId);
+  const client = getClientForChain(chainId);
   try {
     return await client.readContract({
       address,

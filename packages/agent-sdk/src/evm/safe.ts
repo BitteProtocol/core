@@ -1,7 +1,7 @@
 import { type Address, checksumAddress, parseUnits } from "viem";
 import { type UserToken, ZerionAPI } from "zerion-sdk";
 import { scientificToDecimal } from "../misc";
-import { getClient } from "near-safe";
+import { getClientForChain } from "./client";
 
 export interface TokenBalance {
   tokenAddress: string | null; // null for native token
@@ -54,7 +54,7 @@ export async function getSafeBalances(
   address: Address,
   zerionKey?: string,
 ): Promise<TokenBalance[]> {
-  const client = await getClient(chainId);
+  const client = await getClientForChain(chainId);
   const codeAt = await client.getCode({ address });
   if (!codeAt) {
     // Not a Safe - Get balances from Zerion.
