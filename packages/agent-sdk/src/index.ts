@@ -3,3 +3,4 @@ export * from "./evm";
 export * from "./request";
 export * from "./error";
 export * from "./misc";
+export * from "./openai";
