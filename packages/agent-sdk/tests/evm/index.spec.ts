@@ -3,7 +3,7 @@ import {
   fallbackResponder,
   validateRequest,
 } from "../../src/evm";
-import { getAddress, zeroAddress } from "viem";
+import { getAddress, Hex, zeroAddress } from "viem";
 import type { BaseRequest } from "../../src/evm";
 import { hexifyValue } from "../../src/evm";
 
@@ -12,14 +12,6 @@ const address = (i: number): `0x${string}` =>
 
 const to = address(123);
 const from = address(456);
-
-jest.mock("near-safe", () => ({
-  NearSafe: {
-    create: jest.fn().mockImplementation(async () => ({
-      address: to,
-    })),
-  },
-}));
 
 describe("evm/index", () => {
   describe("hexifyValue", () => {
@@ -39,7 +31,9 @@ describe("evm/index", () => {
   });
   describe("signRequestFor", () => {
     it("creates a sign request with default from address", () => {
-      const metaTransactions = [{ to, value: "0x00", data: "0xabc" }];
+      const metaTransactions = [
+        { from: zeroAddress, to, value: "0x00" as Hex, data: "0xabc" as Hex },
+      ];
 
       const result = signRequestFor({
         chainId: 1,
@@ -61,7 +55,9 @@ describe("evm/index", () => {
     });
 
     it("creates a sign request with specified from address", () => {
-      const metaTransactions = [{ to, value: "0x0", data: "0xabc" }];
+      const metaTransactions = [
+        { from: zeroAddress, to, value: "0x00" as Hex, data: "0xabc" as Hex },
+      ];
 
       const result = signRequestFor({
         from,
@@ -76,7 +72,7 @@ describe("evm/index", () => {
           {
             from,
             to,
-            value: "0x0",
+            value: "0x00",
             data: "0xabc",
           },
         ],

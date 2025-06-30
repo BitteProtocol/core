@@ -1,6 +1,5 @@
-import type { MetaTransaction, SignRequestData } from "near-safe";
-import { NearSafe } from "near-safe";
 import { getAddress, zeroAddress, isHex, toHex, toBytes } from "viem";
+import { SignRequest, MetaTransaction } from "@bitte-ai/types";
 import type { Address, Hex } from "viem";
 
 export * from "./types";
@@ -8,6 +7,7 @@ export * from "./erc20";
 export * from "./weth";
 export * from "./tokens";
 export * from "./safe";
+export * from "./chain";
 
 export function hexifyValue(value: string): Hex {
   if (isHex(value)) {
@@ -24,7 +24,7 @@ export function signRequestFor({
   from?: Address;
   chainId: number;
   metaTransactions: MetaTransaction[];
-}): SignRequestData {
+}): SignRequest {
   return {
     method: "eth_sendTransaction",
     chainId,
@@ -81,21 +81,4 @@ export async function validateRequest<
   }
 
   return null;
-}
-
-export async function getAdapterAddress(
-  accountId: string,
-  safeSaltNonce: string,
-): Promise<Address> {
-  const adapter = await NearSafe.create({
-    mpc: {
-      accountId,
-      mpcContractId: accountId.includes(".testnet")
-        ? "v1.signer-prod.testnet"
-        : "v1.signer",
-    },
-    pimlicoKey: "", // This is a readonly adapter Instance!
-    safeSaltNonce,
-  });
-  return getAddress(adapter.address);
 }
