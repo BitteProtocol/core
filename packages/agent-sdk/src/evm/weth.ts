@@ -1,4 +1,4 @@
-import { Network, type MetaTransaction } from "near-safe";
+import type { MetaTransaction } from "@bitte-ai/types";
 import {
   type Address,
   encodeFunctionData,
@@ -6,7 +6,9 @@ import {
   parseAbi,
   parseEther,
   toHex,
+  zeroAddress,
 } from "viem";
+import { Network } from "near-safe";
 
 type NativeAsset = {
   address: Address;
@@ -55,6 +57,7 @@ export const unwrapMetaTransaction = (
   amount: bigint,
 ): MetaTransaction => {
   return {
+    from: zeroAddress,
     to: getNativeAsset(chainId).address,
     value: "0x0",
     data: encodeFunctionData({
@@ -70,6 +73,7 @@ export const wrapMetaTransaction = (
   amount: bigint,
 ): MetaTransaction => {
   return {
+    from: zeroAddress,
     to: getNativeAsset(chainId).address,
     value: toHex(amount),
     // methodId for weth.deposit
