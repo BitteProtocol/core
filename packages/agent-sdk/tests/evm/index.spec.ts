@@ -32,7 +32,7 @@ describe("evm/index", () => {
   describe("signRequestFor", () => {
     it("creates a sign request with default from address", () => {
       const metaTransactions = [
-        { from: zeroAddress, to, value: "0x00" as Hex, data: "0xabc" as Hex },
+        { to, value: "0x00" as Hex, data: "0xabc" as Hex },
       ];
 
       const result = signRequestFor({
@@ -56,7 +56,7 @@ describe("evm/index", () => {
 
     it("creates a sign request with specified from address", () => {
       const metaTransactions = [
-        { from: zeroAddress, to, value: "0x00" as Hex, data: "0xabc" as Hex },
+        { to, value: "0x00" as Hex, data: "0xabc" as Hex },
       ];
 
       const result = signRequestFor({

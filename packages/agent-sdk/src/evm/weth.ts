@@ -6,7 +6,6 @@ import {
   parseAbi,
   parseEther,
   toHex,
-  zeroAddress,
 } from "viem";
 import { Network } from "near-safe";
 
@@ -57,7 +56,6 @@ export const unwrapMetaTransaction = (
   amount: bigint,
 ): MetaTransaction => {
   return {
-    from: zeroAddress,
     to: getNativeAsset(chainId).address,
     value: "0x0",
     data: encodeFunctionData({
@@ -73,7 +71,6 @@ export const wrapMetaTransaction = (
   amount: bigint,
 ): MetaTransaction => {
   return {
-    from: zeroAddress,
     to: getNativeAsset(chainId).address,
     value: toHex(amount),
     // methodId for weth.deposit
