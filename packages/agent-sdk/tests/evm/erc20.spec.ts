@@ -1,4 +1,4 @@
-import { type Address, erc20Abi, zeroAddress } from "viem";
+import { type Address, erc20Abi } from "viem";
 import {
   erc20Transfer,
   erc20Approve,
@@ -28,7 +28,6 @@ describe("ERC20 Utilities", () => {
       };
 
       expect(erc20Transfer(params)).toEqual({
-        from: zeroAddress,
         data: "0xa9059cbb000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000000000000000000003e8",
         to: "0x1234567890123456789012345678901234567890",
         value: "0x00",
@@ -45,7 +44,6 @@ describe("ERC20 Utilities", () => {
       };
 
       expect(erc20Approve(params)).toEqual({
-        from: zeroAddress,
         data: "0x095ea7b3000000000000000000000000123456789012345678901234567890123456789000000000000000000000000000000000000000000000000000000000000003e8",
         to: "0x1234567890123456789012345678901234567890",
         value: "0x0",
@@ -59,7 +57,6 @@ describe("ERC20 Utilities", () => {
       };
 
       expect(erc20Approve(params)).toEqual({
-        from: zeroAddress,
         data: "0x095ea7b30000000000000000000000001234567890123456789012345678901234567890ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
         to: "0x1234567890123456789012345678901234567890",
         value: "0x0",

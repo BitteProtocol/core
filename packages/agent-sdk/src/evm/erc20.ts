@@ -1,4 +1,4 @@
-import { erc20Abi, zeroAddress } from "viem";
+import { erc20Abi } from "viem";
 import { encodeFunctionData, type Address } from "viem";
 import type { MetaTransaction } from "@bitte-ai/types";
 import type { TokenInfo } from "./types";
@@ -16,7 +16,6 @@ export function erc20Transfer(params: {
 }): MetaTransaction {
   const { token, to, amount } = params;
   return {
-    from: zeroAddress,
     to: token,
     value: "0x00",
     data: encodeFunctionData({
@@ -35,9 +34,8 @@ export function erc20Approve(params: {
 }): MetaTransaction {
   const { token, spender, amount } = params;
   return {
-    from: zeroAddress,
     to: token,
-    value: "0x0",
+    value: "0x00",
     data: encodeFunctionData({
       abi: erc20Abi,
       functionName: "approve",

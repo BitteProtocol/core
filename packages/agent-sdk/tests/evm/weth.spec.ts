@@ -16,7 +16,6 @@ describe("evm/weth", () => {
   // Existing tests
   it("unwrapMetaTransaction", async () => {
     expect(unwrapMetaTransaction(100, 25n)).toStrictEqual({
-      from: zeroAddress,
       to: "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
       value: "0x0",
       data: "0x2e1a7d4d0000000000000000000000000000000000000000000000000000000000000019",
@@ -25,7 +24,6 @@ describe("evm/weth", () => {
 
   it("wrapMetaTransaction", async () => {
     expect(wrapMetaTransaction(100, 25n)).toStrictEqual({
-      from: zeroAddress,
       to: "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
       value: "0x19",
       data: "0xd0e30db0",
