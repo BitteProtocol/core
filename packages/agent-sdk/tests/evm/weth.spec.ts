@@ -1,5 +1,5 @@
 import { Network } from "near-safe";
-import { parseEther, zeroAddress } from "viem";
+import { parseEther } from "viem";
 import {
   validateWethInput,
   getNativeAsset,
