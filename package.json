@@ -2,7 +2,7 @@
   "name": "@bitte/core",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "bun@1.1.37",
+  "packageManager": "bun@1.2.17",
   "workspaces": [
     "packages/*"
   ],
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@duneanalytics/client-sdk": "^0.2.5",
+    "@eslint/js": "^9.30.0",
     "@types/bun": "latest",
     "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^8.34.1",
@@ -24,6 +25,7 @@
     "dotenv": "^16.5.0",
     "eslint": "^9.29.0",
     "jest": "^30.0.2",
+    "jest-util": "^30.0.2",
     "next": "^15.3.4",
     "prettier": "^3.5.3",
     "ts-jest": "^29.4.0",

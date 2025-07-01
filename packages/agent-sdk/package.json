@@ -36,5 +36,9 @@
     "near-safe": "^0.10.0",
     "viem": "^2.31.6",
     "zerion-sdk": "^0.1.4"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
