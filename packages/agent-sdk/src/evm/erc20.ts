@@ -58,27 +58,42 @@ export async function checkAllowance(
   });
 }
 
+const NON_ETH_NATIVES: Record<number, { symbol: string; name: string }> = {
+  100: { symbol: "xDAI", name: "xDAI" },
+  137: { symbol: "MATIC", name: "MATIC" },
+  43114: { symbol: "AVAX", name: "AVAX" },
+};
+
+const ETHER_NATIVE = {
+  decimals: 18,
+  // Not all Native Assets are ETH, but enough are.
+  symbol: "ETH",
+  name: "Ether",
+};
+
 export async function getTokenInfo(
   chainId: number,
-  address: Address,
+  address?: Address,
 ): Promise<TokenInfo> {
-  if (address.toLowerCase() === NATIVE_ASSET.toLowerCase()) {
+  if (!address || address.toLowerCase() === NATIVE_ASSET.toLowerCase()) {
+    const native = NON_ETH_NATIVES[chainId] || ETHER_NATIVE;
     return {
       address: NATIVE_ASSET,
       decimals: 18,
-      // Not all Native Assets are ETH, but enough are.
-      symbol: "ETH",
+      ...native,
     };
   }
 
-  const [decimals, symbol] = await Promise.all([
+  const [decimals, symbol, name] = await Promise.all([
     getTokenDecimals(chainId, address),
     getTokenSymbol(chainId, address),
+    getTokenName(chainId, address),
   ]);
   return {
     address,
     decimals,
     symbol,
+    name,
   };
 }
 
@@ -111,5 +126,21 @@ export async function getTokenSymbol(
     });
   } catch (error: unknown) {
     throw new Error(`Error fetching token decimals: ${error}`);
+  }
+}
+
+export async function getTokenName(
+  chainId: number,
+  address: Address,
+): Promise<string> {
+  const client = getClientForChain(chainId);
+  try {
+    return await client.readContract({
+      address,
+      abi: erc20Abi,
+      functionName: "name",
+    });
+  } catch (error: unknown) {
+    throw new Error(`Error fetching token name: ${error}`);
   }
 }
