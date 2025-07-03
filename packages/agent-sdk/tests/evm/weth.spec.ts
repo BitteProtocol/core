@@ -7,11 +7,6 @@ import {
   wrapMetaTransaction,
 } from "../../src/evm/weth";
 
-// Mock the external dependencies
-jest.mock("../../src", () => ({
-  signRequestFor: jest.fn().mockImplementation((args) => args),
-}));
-
 describe("evm/weth", () => {
   // Existing tests
   it("unwrapMetaTransaction", async () => {
