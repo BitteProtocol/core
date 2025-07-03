@@ -14,7 +14,7 @@ import { getClientForChain } from "../../src/evm/client";
 //   getClientForChain: jest.fn(),
 // }));
 
-// TODO(bh2smith): Fix the mocking for `multicall` 
+// TODO(bh2smith): Fix the mocking for `multicall`
 describe.skip("ERC20 Utilities", () => {
   const mockAddress = "0x1234567890123456789012345678901234567890" as Address;
   const mockChainId = 1;
