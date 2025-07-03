@@ -4,4 +4,5 @@ export interface TokenInfo {
   address: Address;
   decimals: number;
   symbol: string;
+  name: string;
 }
