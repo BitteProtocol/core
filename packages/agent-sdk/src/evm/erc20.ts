@@ -83,17 +83,35 @@ export async function getTokenInfo(
       ...native,
     };
   }
+  const client = getClientForChain(chainId);
+  const [decimals, symbol, name] = await client.multicall({
+    contracts: [
+      {
+        abi: erc20Abi,
+        address,
+        functionName: "decimals",
+      },
+      {
+        abi: erc20Abi,
+        address,
+        functionName: "symbol",
+      },
+      {
+        abi: erc20Abi,
+        address,
+        functionName: "name",
+      },
+    ],
+  });
+  if (decimals.error || symbol.error || name.error) {
+    throw new Error("Failed to get token info");
+  }
 
-  const [decimals, symbol, name] = await Promise.all([
-    getTokenDecimals(chainId, address),
-    getTokenSymbol(chainId, address),
-    getTokenName(chainId, address),
-  ]);
   return {
     address,
-    decimals,
-    symbol,
-    name,
+    decimals: decimals.result,
+    symbol: symbol.result,
+    name: name.result,
   };
 }
 
