@@ -32,7 +32,7 @@
     "build:cjs": "tsc -p tsconfig.cjs.json"
   },
   "dependencies": {
-    "@bitte-ai/types": "^0.5.4",
+    "@bitte-ai/types": "^0.6.1",
     "near-safe": "^0.10.0",
     "viem": "^2.31.6",
     "zerion-sdk": "^0.1.4"
