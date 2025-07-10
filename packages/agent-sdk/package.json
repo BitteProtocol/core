@@ -32,13 +32,13 @@
     "build:cjs": "tsc -p tsconfig.cjs.json"
   },
   "dependencies": {
-    "@bitte-ai/types": "^0.6.1",
+    "@bitte-ai/types": "^0.7.0",
     "near-safe": "^0.10.0",
-    "viem": "^2.31.6",
+    "viem": "^2.31.7",
     "zerion-sdk": "^0.1.4"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
