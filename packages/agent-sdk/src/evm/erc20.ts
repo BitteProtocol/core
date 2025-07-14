@@ -1,4 +1,4 @@
-import { erc20Abi } from "viem";
+import { erc20Abi, PublicClient } from "viem";
 import { encodeFunctionData, type Address } from "viem";
 import type { MetaTransaction } from "@bitte-ai/types";
 import type { TokenInfo } from "./types";
@@ -45,12 +45,14 @@ export function erc20Approve(params: {
 }
 
 export async function checkAllowance(
+  chainId: number,
   owner: Address,
   token: Address,
   spender: Address,
-  chainId: number,
+  client?: PublicClient,
 ): Promise<bigint> {
-  return getClientForChain(chainId).readContract({
+  let rpc = client || getClientForChain(chainId);
+  return rpc.readContract({
     address: token,
     abi: erc20Abi,
     functionName: "allowance",
@@ -58,89 +60,62 @@ export async function checkAllowance(
   });
 }
 
-const NON_ETH_NATIVES: Record<number, { symbol: string; name: string }> = {
-  100: { symbol: "xDAI", name: "xDAI" },
-  137: { symbol: "MATIC", name: "MATIC" },
-  43114: { symbol: "AVAX", name: "AVAX" },
-};
+// const NON_ETH_NATIVES: Record<number, { symbol: string; name: string }> = {
+//   100: { symbol: "xDAI", name: "xDAI" },
+//   137: { symbol: "MATIC", name: "MATIC" },
+//   43114: { symbol: "AVAX", name: "AVAX" },
+// };
 
-const ETHER_NATIVE = {
-  decimals: 18,
-  // Not all Native Assets are ETH, but enough are.
-  symbol: "ETH",
-  name: "Ether",
-};
+// const ETHER_NATIVE = {
+//   decimals: 18,
+//   // Not all Native Assets are ETH, but enough are.
+//   symbol: "ETH",
+//   name: "Ether",
+// };
 
 export async function getTokenInfo(
   chainId: number,
   address?: Address,
+  client?: PublicClient,
 ): Promise<TokenInfo> {
+  let rpc = client || getClientForChain(chainId);
   if (!address || address.toLowerCase() === NATIVE_ASSET.toLowerCase()) {
-    const native = NON_ETH_NATIVES[chainId] || ETHER_NATIVE;
+    const chainId = rpc.chain?.id;
     return {
       address: NATIVE_ASSET,
       decimals: 18,
-      ...native,
+      symbol: `Unknown Native Symbol chainId=${chainId}`,
+      name: "Unknown Native Name",
+      ...rpc.chain?.nativeCurrency,
     };
   }
-
-  const [decimals, symbol, name] = await Promise.all([
-    getTokenDecimals(chainId, address),
-    getTokenSymbol(chainId, address),
-    getTokenName(chainId, address),
-  ]);
+  const [decimals, symbol, name] = await rpc.multicall({
+    contracts: [
+      {
+        abi: erc20Abi,
+        address,
+        functionName: "decimals",
+      },
+      {
+        abi: erc20Abi,
+        address,
+        functionName: "symbol",
+      },
+      {
+        abi: erc20Abi,
+        address,
+        functionName: "name",
+      },
+    ],
+  });
+  if (decimals.error || symbol.error || name.error) {
+    console.error(decimals, symbol, name);
+    throw new Error("Failed to get token info");
+  }
   return {
     address,
-    decimals,
-    symbol,
-    name,
+    decimals: decimals.result,
+    symbol: symbol.result,
+    name: name.result,
   };
-}
-
-export async function getTokenDecimals(
-  chainId: number,
-  address: Address,
-): Promise<number> {
-  const client = getClientForChain(chainId);
-  try {
-    return await client.readContract({
-      address,
-      abi: erc20Abi,
-      functionName: "decimals",
-    });
-  } catch (error: unknown) {
-    throw new Error(`Error fetching token decimals: ${error}`);
-  }
-}
-
-export async function getTokenSymbol(
-  chainId: number,
-  address: Address,
-): Promise<string> {
-  const client = getClientForChain(chainId);
-  try {
-    return await client.readContract({
-      address,
-      abi: erc20Abi,
-      functionName: "symbol",
-    });
-  } catch (error: unknown) {
-    throw new Error(`Error fetching token decimals: ${error}`);
-  }
-}
-
-export async function getTokenName(
-  chainId: number,
-  address: Address,
-): Promise<string> {
-  const client = getClientForChain(chainId);
-  try {
-    return await client.readContract({
-      address,
-      abi: erc20Abi,
-      functionName: "name",
-    });
-  } catch (error: unknown) {
-    throw new Error(`Error fetching token name: ${error}`);
-  }
 }

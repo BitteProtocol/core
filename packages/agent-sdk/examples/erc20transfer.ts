@@ -1,14 +1,15 @@
 import { parseUnits, type Address } from "viem";
 import {
   erc20Transfer,
-  getTokenDecimals,
   addressField,
   floatField,
   numberField,
   validateInput,
   type FieldParser,
   signRequestFor,
+  getTokenInfo,
 } from "../src";
+import { getClientForChain } from "../src/evm/client";
 
 interface Input {
   chainId: number;
@@ -34,7 +35,8 @@ export async function GET(req: Request): Promise<Response> {
       search,
       parsers,
     );
-    const decimals = await getTokenDecimals(chainId, token);
+    const client = getClientForChain(chainId);
+    const { decimals } = await getTokenInfo(client, token);
     const tx = erc20Transfer({
       token,
       to: recipient,

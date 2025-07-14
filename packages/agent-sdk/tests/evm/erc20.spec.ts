@@ -4,8 +4,6 @@ import {
   erc20Approve,
   checkAllowance,
   getTokenInfo,
-  getTokenDecimals,
-  getTokenSymbol,
 } from "../../src";
 import { getClientForChain } from "../../src/evm/client";
 
@@ -105,54 +103,6 @@ describe("ERC20 Utilities", () => {
         decimals: 18,
         symbol: "TEST",
       });
-    });
-  });
-
-  describe("getTokenDecimals", () => {
-    it("fetches decimals correctly", async () => {
-      const mockClient = {
-        readContract: jest.fn().mockResolvedValue(18),
-      };
-      (getClientForChain as jest.Mock).mockReturnValue(mockClient);
-
-      const result = await getTokenDecimals(mockChainId, mockAddress);
-
-      expect(result).toBe(18);
-    });
-
-    it("handles errors appropriately", async () => {
-      const mockClient = {
-        readContract: jest.fn().mockRejectedValue(new Error("Test error")),
-      };
-      (getClientForChain as jest.Mock).mockReturnValue(mockClient);
-
-      await expect(getTokenDecimals(mockChainId, mockAddress)).rejects.toThrow(
-        "Error fetching token decimals: Error: Test error",
-      );
-    });
-  });
-
-  describe("getTokenSymbol", () => {
-    it("fetches symbol correctly", async () => {
-      const mockClient = {
-        readContract: jest.fn().mockResolvedValue("TEST"),
-      };
-      (getClientForChain as jest.Mock).mockReturnValue(mockClient);
-
-      const result = await getTokenSymbol(mockChainId, mockAddress);
-
-      expect(result).toBe("TEST");
-    });
-
-    it("handles errors appropriately", async () => {
-      const mockClient = {
-        readContract: jest.fn().mockRejectedValue(new Error("Test error")),
-      };
-      (getClientForChain as jest.Mock).mockReturnValue(mockClient);
-
-      await expect(getTokenSymbol(mockChainId, mockAddress)).rejects.toThrow(
-        "Error fetching token decimals: Error: Test error",
-      );
     });
   });
 });

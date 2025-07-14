@@ -32,6 +32,7 @@
     "build:cjs": "tsc -p tsconfig.cjs.json"
   },
   "dependencies": {
+    "@account-kit/infra": "^4.50.0",
     "@bitte-ai/types": "^0.7.0",
     "near-safe": "^0.10.0",
     "viem": "^2.31.7",
