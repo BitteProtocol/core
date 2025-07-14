@@ -1,11 +1,3 @@
-import {
-  arbitrum,
-  base,
-  mainnet,
-  optimism,
-  polygon,
-  soneiumMainnet,
-} from "@account-kit/infra";
 import { createPublicClient, http, PublicClient } from "viem";
 import * as chains from "viem/chains";
 
@@ -39,23 +31,28 @@ export function getClientForChain(
   });
 }
 
-const ALCHEMY_CHAINS = [
-  mainnet,
-  base,
-  polygon,
-  arbitrum,
-  optimism,
-  soneiumMainnet,
-];
+// Alchemy RPC endpoints for different chains
+const ALCHEMY_RPC_ENDPOINTS: Record<number, string> = {
+  1: "https://eth-mainnet.g.alchemy.com/v2",
+  10: "https://opt-mainnet.g.alchemy.com/v2",
+  56: "https://bsc-mainnet.g.alchemy.com/v2",
+  137: "https://polygon-mainnet.g.alchemy.com/v2",
+  1868: "https://soneium-mainnet.g.alchemy.com/v2",
+  8453: "https://base-mainnet.g.alchemy.com/v2",
+  42161: "https://arb-mainnet.g.alchemy.com/v2",
+  42220: "https://celo-mainnet.g.alchemy.com/v2",
+  43114: "https://avax-mainnet.g.alchemy.com/v2",
+  81457: "https://blast-mainnet.g.alchemy.com/v2",
+};
 
 export const getAlchemyClient = (
   chainId: number,
   alchemyKey: string,
 ): PublicClient | undefined => {
-  const alchemyChain = ALCHEMY_CHAINS.find((c) => c.id === chainId);
-  const alchemyRpcBase = alchemyChain?.rpcUrls?.alchemy?.http?.[0];
+  const alchemyRpcBase = ALCHEMY_RPC_ENDPOINTS[chainId];
   if (alchemyRpcBase) {
     return createPublicClient({
+      chain: getChainById(chainId),
       transport: http(`${alchemyRpcBase}/${alchemyKey}`),
     });
   }
