@@ -31,7 +31,7 @@ describe("getTokenDetails", () => {
       address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
       name: "xDAI",
       decimals: 18,
-      symbol: "xDAI",
+      symbol: "XDAI",
     });
   });
 

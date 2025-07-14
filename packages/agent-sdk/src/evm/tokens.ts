@@ -1,4 +1,4 @@
-import { isAddress } from "viem";
+import { isAddress, PublicClient } from "viem";
 import { getTokenInfo } from "./erc20";
 import { type TokenInfo } from "./types";
 
@@ -36,9 +36,11 @@ export async function getTokenDetails(
   chainId: number,
   symbolOrAddress: string,
   tokenMap?: BlockchainMapping,
+  // Optionally Provide your own RPC.
+  client?: PublicClient,
 ): Promise<TokenInfo | undefined> {
   if (isAddress(symbolOrAddress, { strict: false })) {
-    return getTokenInfo(chainId, symbolOrAddress);
+    return getTokenInfo(chainId, symbolOrAddress, client);
   }
   if (!tokenMap) {
     tokenMap = await loadTokenMap();
