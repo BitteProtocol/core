@@ -9,18 +9,13 @@ export type BlockchainMapping = Record<ChainId, SymbolMapping>;
 const TOKEN_MAP_BASE_URL =
   "https://raw.githubusercontent.com/BitteProtocol/core/main/public";
 
-let loadedSymbolMap: SymbolMapping | null = null;
-
 export async function loadSymbolMap(url: string): Promise<SymbolMapping> {
-  if (loadedSymbolMap) {
-    return loadedSymbolMap;
-  }
   try {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to load tokens at: ${response.statusText}`);
     }
-    loadedSymbolMap = await response.json();
+    const loadedSymbolMap = await response.json();
     return loadedSymbolMap as SymbolMapping;
   } catch (error) {
     console.error("Error loading symbolMap:", error);
