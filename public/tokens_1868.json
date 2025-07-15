@@ -1,0 +1,102 @@
+{
+  "eth": {
+    "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    "decimals": 18,
+    "symbol": "ETH"
+  },
+  "weth": {
+    "address": "0x4200000000000000000000000000000000000006",
+    "decimals": 18,
+    "symbol": "WETH"
+  },
+  "solvbtc": {
+    "address": "0x541FD749419CA806a8bc7da8ac23D346f2dF8B77",
+    "symbol": "SOLVBTC",
+    "name": "Solv Protocol BTC",
+    "decimals": 18
+  },
+  "xsolvbtc": {
+    "address": "0xCC0966D8418d412c599A6421b760a847eB169A8c",
+    "symbol": "XSOLVBTC",
+    "name": "Solv Protocol Staked BTC",
+    "decimals": 18
+  },
+  "solvbtcjup": {
+    "address": "0xAffEb8576b927050f5a3B6fbA43F360D2883A118",
+    "symbol": "SOLVBTCJUP",
+    "name": "Solv Protocol SolvBTC Jupiter",
+    "decimals": 18
+  },
+  "usdce": {
+    "address": "0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369",
+    "symbol": "USDCE",
+    "name": "Soneium Bridged USDC  Soneium",
+    "decimals": 6
+  },
+  "yaystone": {
+    "address": "0x54e86315C03217b76A7466C302245fD10ebEf25A",
+    "symbol": "YAYSTONE",
+    "name": "Yay StakeStone Ether",
+    "decimals": 18
+  },
+  "wstastr": {
+    "address": "0x3b0DC2daC9498A024003609031D973B1171dE09E",
+    "symbol": "WSTASTR",
+    "name": "Wrapped stASTR",
+    "decimals": 18
+  },
+  "yayageth": {
+    "address": "0xda14b3B7aEF494b8c37ed9710d14e44D490316fa",
+    "symbol": "YAYAGETH",
+    "name": "Yay Kelp DAO s Airdrop Gain ETH",
+    "decimals": 18
+  },
+  "arcas": {
+    "address": "0x570f09AC53b96929e3868f71864E36Ff6b1B67D7",
+    "symbol": "ARCAS",
+    "name": "Arcas",
+    "decimals": 18
+  },
+  "bonsaicoin": {
+    "address": "0xA0aeBd4Ae5F256B72B7D43f67eD934237Adb1AeE",
+    "symbol": "BONSAICOIN",
+    "name": "Bonsai Coin",
+    "decimals": 18
+  },
+  "usdt": {
+    "address": "0x3A337a6adA9d885b6Ad95ec48F9b75f197b5AE35",
+    "symbol": "USDT",
+    "name": "Soneium Bridged USDT  Soneium",
+    "decimals": 6
+  },
+  "sone": {
+    "address": "0xf24e57b1cb00d98C31F04f86328e22E8fcA457fb",
+    "symbol": "SONE",
+    "name": "SONE",
+    "decimals": 18
+  },
+  "wgc": {
+    "address": "0x3d63825B0d8669307366E6c8202f656b9E91D368",
+    "symbol": "WGC",
+    "name": "Wild Goat Coin",
+    "decimals": 6
+  },
+  "pipo": {
+    "address": "0x8CD846c404C7267350a2920576816603Cd5C6539",
+    "symbol": "PIPO",
+    "name": "Pipo",
+    "decimals": 18
+  },
+  "nsastr": {
+    "address": "0xc67476893C166c537afd9bc6bc87b3f228b44337",
+    "symbol": "NSASTR",
+    "name": "Neemo Staked Astar",
+    "decimals": 18
+  },
+  "astr": {
+    "address": "0x2CAE934a1e84F693fbb78CA5ED3B0A6893259441",
+    "symbol": "ASTR",
+    "name": "Soneium Bridged ASTR Soneium",
+    "decimals": 18
+  }
+}
