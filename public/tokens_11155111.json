@@ -1,0 +1,49 @@
+{
+  "eth": {
+    "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    "decimals": 18,
+    "symbol": "ETH"
+  },
+  "weth": {
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "decimals": 18,
+    "address": "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14"
+  },
+  "uni": {
+    "name": "Uniswap",
+    "symbol": "UNI",
+    "decimals": 18,
+    "address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984"
+  },
+  "usdc": {
+    "name": "USDC (test)",
+    "symbol": "USDC",
+    "decimals": 18,
+    "address": "0xbe72E441BF55620febc26715db68d3494213D8Cb"
+  },
+  "gno": {
+    "name": "GNO (test)",
+    "symbol": "GNO",
+    "decimals": 18,
+    "address": "0xd3f3d46FeBCD4CdAa2B83799b7A5CdcB69d135De"
+  },
+  "dai": {
+    "name": "DAI (test)",
+    "symbol": "DAI",
+    "decimals": 18,
+    "address": "0xB4F1737Af37711e9A5890D9510c9bB60e170CB0D"
+  },
+  "cow": {
+    "name": "CoW Protocol Token",
+    "symbol": "COW",
+    "decimals": 18,
+    "address": "0x0625aFB445C3B6B7B929342a04A22599fd5dBB59"
+  },
+  "usdt": {
+    "name": "Tether USD",
+    "symbol": "USDT",
+    "decimals": 6,
+    "address": "0x58eb19ef91e8a6327fed391b51ae1887b833cc91"
+  }
+}
