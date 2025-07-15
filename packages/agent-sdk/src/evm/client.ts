@@ -45,10 +45,10 @@ const ALCHEMY_RPC_ENDPOINTS: Record<number, string> = {
   81457: "https://blast-mainnet.g.alchemy.com/v2",
 };
 
-export const getAlchemyClient = (
+export function getAlchemyClient(
   chainId: number,
   alchemyKey: string,
-): PublicClient | undefined => {
+): PublicClient | undefined {
   const alchemyRpcBase = ALCHEMY_RPC_ENDPOINTS[chainId];
   if (alchemyRpcBase) {
     return createPublicClient({
@@ -57,4 +57,4 @@ export const getAlchemyClient = (
     });
   }
   console.warn("No Alchemy Base URL available");
-};
+}
