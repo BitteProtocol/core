@@ -6,30 +6,51 @@ type SymbolMapping = Record<string, TokenInfo | undefined>;
 type ChainId = number;
 export type BlockchainMapping = Record<ChainId, SymbolMapping>;
 
-const TOKEN_MAP_URL =
-  "https://raw.githubusercontent.com/BitteProtocol/core/main/public/tokenMap.json";
+const TOKEN_MAP_BASE_URL =
+  "https://raw.githubusercontent.com/BitteProtocol/core/main/public";
 
-// Add a variable to store the loaded token map
-let loadedTokenMap: BlockchainMapping | null = null;
+let loadedSymbolMap: SymbolMapping | null = null;
 
-export async function loadTokenMap(
-  url: string = TOKEN_MAP_URL,
-): Promise<BlockchainMapping> {
-  if (loadedTokenMap) {
-    return loadedTokenMap;
+export async function loadSymbolMap(url: string): Promise<SymbolMapping> {
+  if (loadedSymbolMap) {
+    return loadedSymbolMap;
   }
-
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Failed to load tokenMap.json: ${response.statusText}`);
+      throw new Error(`Failed to load tokens at: ${response.statusText}`);
     }
-    loadedTokenMap = await response.json();
-    return loadedTokenMap as BlockchainMapping;
+    loadedSymbolMap = await response.json();
+    return loadedSymbolMap as SymbolMapping;
   } catch (error) {
-    console.error("Error loading tokenMap:", error);
+    console.error("Error loading symbolMap:", error);
     throw error;
   }
+}
+const defaultChainList = [1, 10, 56, 100, 137, 1868, 8453, 4261, 43114];
+
+function tokenMapUrl(
+  chainId: number,
+  baseUrl: string = TOKEN_MAP_BASE_URL,
+): string {
+  return `${baseUrl}/tokens_${chainId}.json`;
+}
+
+export async function loadTokenMap(
+  chainIds: number[] = defaultChainList,
+): Promise<BlockchainMapping> {
+  const mapping: BlockchainMapping = {};
+  await Promise.all(
+    chainIds.map(async (chainId) => {
+      try {
+        mapping[chainId] = await loadSymbolMap(tokenMapUrl(chainId));
+      } catch (error) {
+        console.error(`Error loading token map for chain ${chainId}:`, error);
+        mapping[chainId] = {};
+      }
+    }),
+  );
+  return mapping;
 }
 
 export async function getTokenDetails(
@@ -42,8 +63,10 @@ export async function getTokenDetails(
   if (isAddress(symbolOrAddress, { strict: false })) {
     return getTokenInfo(chainId, symbolOrAddress, client);
   }
+
   if (!tokenMap) {
-    tokenMap = await loadTokenMap();
+    const symbolMap = await loadSymbolMap(tokenMapUrl(chainId));
+    return symbolMap[symbolOrAddress.toLowerCase()];
   }
   // TokenMap has lower cased (sanitized) symbols
   return tokenMap[chainId][symbolOrAddress.toLowerCase()];
