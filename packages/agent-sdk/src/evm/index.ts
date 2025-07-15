@@ -8,6 +8,7 @@ export * from "./weth";
 export * from "./tokens";
 export * from "./safe";
 export * from "./chain";
+export * from "./client";
 
 export function hexifyValue(value: string): Hex {
   if (isHex(value)) {
