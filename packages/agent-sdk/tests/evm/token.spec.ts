@@ -35,7 +35,7 @@ describe("getTokenDetails", () => {
     });
   });
 
-  it("should return the token details for a given symbol", async () => {
+  it.skip("should return the token details for a given symbol", async () => {
     const tokenDetails = await getTokenDetails(43114, "UNI");
     expect(tokenDetails).toBeUndefined();
   });

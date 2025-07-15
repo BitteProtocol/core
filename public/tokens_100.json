@@ -1,0 +1,502 @@
+{
+  "ageur": {
+    "address": "0x4b1E2c2762667331Bc91648052F646d1b0d35984",
+    "decimals": 18,
+    "symbol": "agEUR"
+  },
+  "dxd": {
+    "address": "0xb90D6bec20993Be5d72A5ab353343f7a0281f158",
+    "decimals": 18,
+    "symbol": "DXD"
+  },
+  "data": {
+    "address": "0x256eb8a51f382650B2A1e946b8811953640ee47D",
+    "decimals": 18,
+    "symbol": "DATA"
+  },
+  "bcspx": {
+    "address": "0x1e2C4fb7eDE391d116E6B41cD0608260e8801D59",
+    "decimals": 18,
+    "symbol": "bCSPX"
+  },
+  "hex": {
+    "address": "0xd9Fa47e33d4Ff7a1ACA489DE1865ac36c042B07a",
+    "decimals": 8,
+    "symbol": "HEX"
+  },
+  "hopr": {
+    "address": "0xD057604A14982FE8D88c5fC25Aac3267eA142a08",
+    "decimals": 18,
+    "symbol": "HOPR"
+  },
+  "gno": {
+    "address": "0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb",
+    "decimals": 18,
+    "symbol": "GNO"
+  },
+  "aura": {
+    "address": "0x1509706a6c66CA549ff0cB464de88231DDBe213B",
+    "decimals": 18,
+    "symbol": "AURA"
+  },
+  "shweatpants": {
+    "address": "0x11C9F4c3E960CCe4464E25a9fA5414Ab72fc45EA",
+    "decimals": 18,
+    "symbol": "SHWEATPANTS"
+  },
+  "ethix": {
+    "address": "0xec3f3e6d7907acDa3A7431abD230196CDA3FbB19",
+    "decimals": 18,
+    "symbol": "ETHIX"
+  },
+  "prtcle": {
+    "address": "0xB5d592f85ab2D955c25720EbE6FF8D4d1E1Be300",
+    "decimals": 18,
+    "symbol": "PRTCLE"
+  },
+  "osgno": {
+    "address": "0xF490c80aAE5f2616d3e3BDa2483E30C4CB21d1A0",
+    "decimals": 18,
+    "symbol": "osGNO"
+  },
+  "dai": {
+    "address": "0x44fA8E6f47987339850636F88629646662444217",
+    "decimals": 18,
+    "symbol": "DAI"
+  },
+  "sdai": {
+    "address": "0xaf204776c7245bF4147c2612BF6e5972Ee483701",
+    "decimals": 18,
+    "symbol": "sDAI"
+  },
+  "meme": {
+    "address": "0x512a2Eb0277573ae9Be0d48c782590b624048fdF",
+    "decimals": 8,
+    "symbol": "MEME"
+  },
+  "water": {
+    "address": "0x4291F029B9e7acb02D49428458cf6fceAC545f81",
+    "decimals": 18,
+    "symbol": "WATER"
+  },
+  "node": {
+    "address": "0xc60e38C6352875c051B481Cbe79Dd0383AdB7817",
+    "decimals": 18,
+    "symbol": "NODE"
+  },
+  "bb-weth-wsteth": {
+    "address": "0xbAd20c15A773bf03ab973302F61FAbceA5101f0A",
+    "decimals": 18,
+    "symbol": "bb-WETH-wstETH"
+  },
+  "bb-ag-usd": {
+    "address": "0xFEdb19Ec000d38d92Af4B21436870F115db22725",
+    "decimals": 18,
+    "symbol": "bb-ag-USD"
+  },
+  "crv": {
+    "address": "0x712b3d230F3C1c19db860d80619288b1F0BDd0Bd",
+    "decimals": 18,
+    "symbol": "CRV"
+  },
+  "gyd": {
+    "address": "0xCA5d8F8a8d49439357d3CF46Ca2e720702F132b8",
+    "decimals": 18,
+    "symbol": "GYD"
+  },
+  "xcomb": {
+    "address": "0x38Fb649Ad3d6BA1113Be5F57B927053E97fC5bF7",
+    "decimals": 18,
+    "symbol": "xCOMB"
+  },
+  "stake": {
+    "address": "0xb7D311E2Eb55F2f68a9440da38e7989210b9A05e",
+    "decimals": 18,
+    "symbol": "STAKE"
+  },
+  "hny": {
+    "address": "0x71850b7E9Ee3f13Ab46d67167341E4bDc905Eef9",
+    "decimals": 18,
+    "symbol": "HNY"
+  },
+  "weth": {
+    "address": "0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1",
+    "decimals": 18,
+    "symbol": "WETH"
+  },
+  "usdc.e": {
+    "address": "0x2a22f9c3b484c3629090FeED35F17Ff8F88f76F0",
+    "decimals": 6,
+    "symbol": "USDC.e"
+  },
+  "cow": {
+    "address": "0x177127622c4A00F3d409B75571e12cB3c8973d3c",
+    "decimals": 18,
+    "symbol": "COW"
+  },
+  "raid": {
+    "address": "0x18E9262e68Cc6c6004dB93105cc7c001BB103e49",
+    "decimals": 18,
+    "symbol": "RAID"
+  },
+  "wxdai": {
+    "address": "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
+    "decimals": 18,
+    "symbol": "WXDAI"
+  },
+  "realtoken-ch-s-rwa-holdings-sa-neuchatel-ne": {
+    "address": "0x0675e8F4A52eA6c845CB6427Af03616a2af42170",
+    "decimals": 9,
+    "symbol": "REALTOKEN-CH-S-RWA-HOLDINGS-SA-NEUCHATEL-NE"
+  },
+  "busd": {
+    "address": "0xdd96B45877d0E8361a4DDb732da741e97f3191Ff",
+    "decimals": 18,
+    "symbol": "BUSD"
+  },
+  "xmoon": {
+    "address": "0x1e16aa4Df73d29C029d94CeDa3e3114EC191E25A",
+    "decimals": 18,
+    "symbol": "xMOON"
+  },
+  "bid": {
+    "address": "0x2977893F4C04bfbd6EFc68d0e46598d27810d3dB",
+    "decimals": 18,
+    "symbol": "BID"
+  },
+  "dip": {
+    "address": "0x48b1B0d077b4919b65b4E4114806dD803901E1D9",
+    "decimals": 18,
+    "symbol": "DIP"
+  },
+  "usdt": {
+    "address": "0x4ECaBa5870353805a9F068101A40E0f32ed605C6",
+    "decimals": 6,
+    "symbol": "USDT"
+  },
+  "flx": {
+    "address": "0xD87eaA26dCfB0C0A6160cCf8c8a01BEB1C15fB00",
+    "decimals": 18,
+    "symbol": "FLX"
+  },
+  "xdai": {
+    "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    "decimals": 18,
+    "symbol": "xDAI"
+  },
+  "statagnousdce": {
+    "address": "0xf0E7eC247b918311afa054E0AEdb99d74c31b809",
+    "decimals": 6,
+    "symbol": "stataGnoUSDCe"
+  },
+  "xgt": {
+    "address": "0xC25AF3123d2420054c8fcd144c21113aa2853F39",
+    "decimals": 18,
+    "symbol": "XGT"
+  },
+  "alvin": {
+    "address": "0x50DBde932A94b0c23D27cdd30Fbc6B987610c831",
+    "decimals": 18,
+    "symbol": "ALVIN"
+  },
+  "hiveshare": {
+    "address": "0x97E4ebc14C117C1ac2D032a5A8140C84628b0d17",
+    "decimals": 18,
+    "symbol": "HIVESHARE"
+  },
+  "symm": {
+    "address": "0xC45b3C1c24d5F54E7a2cF288ac668c74Dd507a84",
+    "decimals": 18,
+    "symbol": "SYMM"
+  },
+  "esr": {
+    "address": "0xD3226B12e6188133b19Ac0419f34B0ed5B10f069",
+    "decimals": 18,
+    "symbol": "ESR"
+  },
+  "uncl": {
+    "address": "0x703120F2f2011a0D03A03a531Ac0e84e81F15989",
+    "decimals": 18,
+    "symbol": "UNCL"
+  },
+  "xbrick": {
+    "address": "0x2f9ceBf5De3bc25E0643D0E66134E5bf5c48e191",
+    "decimals": 18,
+    "symbol": "xBRICK"
+  },
+  "dhv": {
+    "address": "0xFbdd194376de19a88118e84E279b977f165d01b8",
+    "decimals": 18,
+    "symbol": "DHV"
+  },
+  "crvusd": {
+    "address": "0xaBEf652195F98A91E490f047A5006B71c85f058d",
+    "decimals": 18,
+    "symbol": "crvUSD"
+  },
+  "mps": {
+    "address": "0xfa57AA7beED63D03Aaf85fFd1753f5f6242588fb",
+    "decimals": 0,
+    "symbol": "MPS"
+  },
+  "bright": {
+    "address": "0x83FF60E2f93F8eDD0637Ef669C69D5Fb4f64cA8E",
+    "decimals": 18,
+    "symbol": "BRIGHT"
+  },
+  "reg": {
+    "address": "0x0AA1e96D2a46Ec6beB2923dE1E61Addf5F5f1dce",
+    "decimals": 18,
+    "symbol": "REG"
+  },
+  "wsteth": {
+    "address": "0x6C76971f98945AE98dD7d4DFcA8711ebea946eA6",
+    "decimals": 18,
+    "symbol": "wstETH"
+  },
+  "jeur": {
+    "address": "0x9fB1d52596c44603198fB0aee434fac3a679f702",
+    "decimals": 18,
+    "symbol": "jEUR"
+  },
+  "matic": {
+    "address": "0x7122d7661c4564b7C6Cd4878B06766489a6028A2",
+    "decimals": 18,
+    "symbol": "MATIC"
+  },
+  "uncx": {
+    "address": "0x0116e28B43A358162B96f70B4De14C98A4465f25",
+    "decimals": 18,
+    "symbol": "UNCX"
+  },
+  "yfi": {
+    "address": "0xbf65bfcb5da067446CeE6A706ba3Fe2fB1a9fdFd",
+    "decimals": 18,
+    "symbol": "YFI"
+  },
+  "elk": {
+    "address": "0xE1C110E1B1b4A1deD0cAf3E42BfBdbB7b5d7cE1C",
+    "decimals": 18,
+    "symbol": "ELK"
+  },
+  "miva": {
+    "address": "0x63e62989D9EB2d37dfDB1F93A22f063635b07d51",
+    "decimals": 18,
+    "symbol": "MIVA"
+  },
+  "swash": {
+    "address": "0x84E2C67CBEfae6B5148fcA7d02B341B12ff4b5Bb",
+    "decimals": 18,
+    "symbol": "SWASH"
+  },
+  "uni": {
+    "address": "0x4537e328Bf7e4eFA29D05CAeA260D7fE26af9D74",
+    "decimals": 18,
+    "symbol": "UNI"
+  },
+  "trips": {
+    "address": "0x479e32cDFF5F216f93060700C711D1cC8E811a6B",
+    "decimals": 18,
+    "symbol": "TRIPS"
+  },
+  "clny": {
+    "address": "0xc9B6218AffE8Aba68a13899Cbf7cF7f14DDd304C",
+    "decimals": 18,
+    "symbol": "CLNY"
+  },
+  "bao": {
+    "address": "0x82dFe19164729949fD66Da1a37BC70dD6c4746ce",
+    "decimals": 18,
+    "symbol": "BAO"
+  },
+  "hivewater": {
+    "address": "0x3A3e9715018d80916740E8Ac300713FDf6614d19",
+    "decimals": 18,
+    "symbol": "hiveWATER"
+  },
+  "surf": {
+    "address": "0xc12956b840B403b600014a3092f6EBD9259738fE",
+    "decimals": 18,
+    "symbol": "SURF"
+  },
+  "wbtc": {
+    "address": "0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252",
+    "decimals": 8,
+    "symbol": "WBTC"
+  },
+  "gbpe": {
+    "address": "0x5Cb9073902F2035222B9749F8fB0c9BFe5527108",
+    "decimals": 18,
+    "symbol": "GBPe"
+  },
+  "usdc": {
+    "address": "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83",
+    "decimals": 6,
+    "symbol": "USDC"
+  },
+  "haus": {
+    "address": "0xb0C5f3100A4d9d9532a4CfD68c55F1AE8da987Eb",
+    "decimals": 18,
+    "symbol": "HAUS"
+  },
+  "bill": {
+    "address": "0x0FBC536Fb0927b034C6386C949f2603056DF6571",
+    "decimals": 9,
+    "symbol": "BILL"
+  },
+  "link": {
+    "address": "0xE2e73A1c69ecF83F464EFCE6A5be353a37cA09b2",
+    "decimals": 18,
+    "symbol": "LINK"
+  },
+  "cfxq": {
+    "address": "0x64b17a95e6C45306FB23Bc526eB2dc9E1331a1b1",
+    "decimals": 6,
+    "symbol": "CFXQ"
+  },
+  "donut": {
+    "address": "0x524B969793a64a602342d89BC2789D43a016B13A",
+    "decimals": 18,
+    "symbol": "DONUT"
+  },
+  "punk": {
+    "address": "0x988d1Be68F2C5cDE2516a2287c59Bd6302b7D20D",
+    "decimals": 18,
+    "symbol": "PUNK"
+  },
+  "stabal3": {
+    "address": "0x2086f52651837600180dE173B09470F54EF74910",
+    "decimals": 18,
+    "symbol": "staBAL3"
+  },
+  "giv": {
+    "address": "0x4f4F9b8D5B4d0Dc10506e5551B0513B61fD59e75",
+    "decimals": 18,
+    "symbol": "GIV"
+  },
+  "bal": {
+    "address": "0x7eF541E2a22058048904fE5744f9c7E4C57AF717",
+    "decimals": 18,
+    "symbol": "BAL"
+  },
+  "olas": {
+    "address": "0xcE11e14225575945b8E6Dc0D4F2dD4C570f79d9f",
+    "decimals": 18,
+    "symbol": "OLAS"
+  },
+  "trac": {
+    "address": "0xEddd81E0792E764501AaE206EB432399a0268DB5",
+    "decimals": 18,
+    "symbol": "TRAC"
+  },
+  "aave": {
+    "address": "0xDF613aF6B44a31299E48131e9347F034347E2F00",
+    "decimals": 18,
+    "symbol": "AAVE"
+  },
+  "steur": {
+    "address": "0x004626A008B1aCdC4c74ab51644093b155e59A23",
+    "decimals": 18,
+    "symbol": "stEUR"
+  },
+  "fraction": {
+    "address": "0x2bF2ba13735160624a0fEaE98f6aC8F70885eA61",
+    "decimals": 18,
+    "symbol": "FRACTION"
+  },
+  "agve": {
+    "address": "0x3a97704a1b25F08aa230ae53B352e2e72ef52843",
+    "decimals": 18,
+    "symbol": "AGVE"
+  },
+  "mcdc": {
+    "address": "0xC577cDdABB7893cC2cA15eF4b5D5e5E13c3FeeD3",
+    "decimals": 2,
+    "symbol": "MCDC"
+  },
+  "cuckc": {
+    "address": "0x75cE5118Ff1F1232AC225F874aA42b45B0786A9c",
+    "decimals": 18,
+    "symbol": "CuckC"
+  },
+  "wbnb": {
+    "address": "0xCa8d20f3e0144a72C6B5d576e9Bd3Fd8557E2B04",
+    "decimals": 18,
+    "symbol": "WBNB"
+  },
+  "btccb": {
+    "address": "0xB2aE7983A8142401d45546aAb981e5fbff520991",
+    "decimals": 18,
+    "symbol": "BTCCB"
+  },
+  "sushi": {
+    "address": "0x2995D1317DcD4f0aB89f4AE60F3f020A4F17C7CE",
+    "decimals": 18,
+    "symbol": "SUSHI"
+  },
+  "cmp": {
+    "address": "0x911F196Ed489e41C8B45B5C56FEce021C27a6159",
+    "decimals": 18,
+    "symbol": "CMP"
+  },
+  "1inch": {
+    "address": "0x7f7440C5098462f833E123B44B8A03E1d9785BAb",
+    "decimals": 18,
+    "symbol": "1INCH"
+  },
+  "cold": {
+    "address": "0xdbcadE285846131a5e7384685EADDBDFD9625557",
+    "decimals": 18,
+    "symbol": "COLD"
+  },
+  "fox": {
+    "address": "0x21a42669643f45Bc0e086b8Fc2ed70c23D67509d",
+    "decimals": 18,
+    "symbol": "FOX"
+  },
+  "bzz": {
+    "address": "0xdBF3Ea6F5beE45c02255B2c26a16F300502F68da",
+    "decimals": 16,
+    "symbol": "BZZ"
+  },
+  "vita": {
+    "address": "0x0939a7c3f8D37C1ce67fAda4963aE7E0bd112ff3",
+    "decimals": 18,
+    "symbol": "VITA"
+  },
+  "fcl": {
+    "address": "0xe68856eb29B2FB39699286CcA7F10f90Ce8AE9De",
+    "decimals": 18,
+    "symbol": "FCL"
+  },
+  "pan": {
+    "address": "0x981fB9BA94078a2275A8fc906898ea107B9462A8",
+    "decimals": 18,
+    "symbol": "PAN"
+  },
+  "rare": {
+    "address": "0x57e93BB58268dE818B42E3795c97BAD58aFCD3Fe",
+    "decimals": 18,
+    "symbol": "RARE"
+  },
+  "safe": {
+    "address": "0x4d18815D14fe5c3304e87B3FA18318baa5c23820",
+    "decimals": 18,
+    "symbol": "SAFE"
+  },
+  "albc": {
+    "address": "0xfb23CfD35046466FdBA7f73dC2FcCb5b17ABf1Aa",
+    "decimals": 18,
+    "symbol": "ALBC"
+  },
+  "eure": {
+    "address": "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
+    "decimals": 18,
+    "symbol": "EURe"
+  },
+  "snafu": {
+    "address": "0x27B9C2Bd4BaEa18ABdF49169054c1C1c12af9862",
+    "decimals": 18,
+    "symbol": "SNAFU"
+  }
+}

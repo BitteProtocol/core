@@ -10,6 +10,7 @@
   "scripts": {
     "build": "bun run --cwd packages/agent-sdk build",
     "tokenMap": "bun run scripts/genTokenMap.ts",
+    "splitTokenMap": "bun run scripts/splitTokenMap.ts",
     "lint": "prettier --check {scripts,packages}/**/* && eslint packages/",
     "fmt": "prettier --write {scripts,packages}/**/* && eslint packages/ --fix",
     "test": "jest --config jest.config.cjs"

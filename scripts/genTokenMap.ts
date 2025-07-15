@@ -16,6 +16,7 @@ interface TokenRow {
 }
 
 async function generateTokenMapJson(
+  chainId: number,
   useLatestResults: boolean = false,
 ): Promise<void> {
   dotenv.config();
