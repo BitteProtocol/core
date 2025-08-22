@@ -7,9 +7,10 @@ import {
   parseEther,
   toHex,
 } from "viem";
-import { Network } from "near-safe";
+import { CHAIN_INFO } from "./constants";
+import { getChainById } from "./chain";
 
-type NativeAsset = {
+type WrappedAsset = {
   address: Address;
   symbol: string;
   scanUrl: string;
@@ -19,7 +20,7 @@ type NativeAsset = {
 export function validateWethInput(params: URLSearchParams): {
   chainId: number;
   amount: bigint;
-  nativeAsset: NativeAsset;
+  nativeAsset: WrappedAsset;
 } {
   const chainIdStr = params.get("chainId");
   const amountStr = params.get("amount");
@@ -78,18 +79,16 @@ export const wrapMetaTransaction = (
   };
 };
 
-export function getNativeAsset(chainId: number): NativeAsset {
-  const network = Network.fromChainId(chainId);
-  const wethAddress = network.nativeCurrency.wrappedAddress;
+export function getNativeAsset(chainId: number): WrappedAsset {
+  const wethAddress = CHAIN_INFO[chainId];
   if (!wethAddress) {
-    throw new Error(
-      `Couldn't find wrapped address for Network ${network.name} (chainId=${chainId})`,
-    );
+    throw new Error(`Couldn't find wrapped address for chainId=${chainId}`);
   }
+  const chain = getChainById(chainId);
   return {
     address: getAddress(wethAddress),
-    symbol: network.nativeCurrency.symbol,
-    scanUrl: `${network.scanUrl}/address/${wethAddress}`,
-    decimals: network.nativeCurrency.decimals,
+    symbol: chain.nativeCurrency.symbol,
+    scanUrl: `${chain.blockExplorers?.default.url}/address/${wethAddress}`,
+    decimals: chain.nativeCurrency.decimals,
   };
 }

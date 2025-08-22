@@ -1,8 +1,8 @@
-import { SignRequestData } from "near-safe";
+import { SignRequest } from "@bitte-ai/types";
 import { errorString } from "./error";
 
 export interface TxData {
-  transaction?: SignRequestData;
+  transaction?: SignRequest;
   meta?: unknown;
 }
 

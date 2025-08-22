@@ -1,0 +1,19 @@
+import { Address } from "viem";
+
+export const CHAIN_INFO: Record<number, Address> = {
+  1: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", // Ethereum Mainnet
+  10: "0x4200000000000000000000000000000000000006", // Optimism
+  56: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", // Binance Smart Chain
+  97: "0x094616f0bdfb0b526bd735bf66eca0ad254ca81f", // Binance Testnet
+  100: "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d", // Gnosis Chain
+  137: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270", // Polygon
+  8453: "0x4200000000000000000000000000000000000006", // Base
+  10200: "0xb2D0d7aD1D4b2915390Dc7053b9421F735A723E7", // Gnosis Chiado Testnet
+  42161: "0x82af49447d8a07e3bd95bd0d56f35241523fbab1", // Arbitrum
+  43114: "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7", // Avalanche
+  84532: "0x4200000000000000000000000000000000000006", // Base Sepolia
+  80002: "0xa5733b3a8e62a8faf43b0376d5faf46e89b3033e", // Polygon Amoy
+  421614: "0x980b62da83eff3d4576c647993b0c1d7faf17c73", // Arbitrum Sepolia
+  11155111: "0xfff9976782d46cc05630d1f6ebab18b2324d6b14", // Sepolia
+  11155420: "0x4200000000000000000000000000000000000006", // OP Testnet
+};

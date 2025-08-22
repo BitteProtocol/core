@@ -1,4 +1,4 @@
-import { MetaTransaction } from "near-safe";
+import { MetaTransaction } from "@bitte-ai/types";
 
 export const NULL_TRANSACTION: MetaTransaction = {
   to: "0x0000000000000000000000000000000000000000",

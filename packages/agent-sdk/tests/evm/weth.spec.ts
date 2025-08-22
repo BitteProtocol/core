@@ -1,4 +1,3 @@
-import { Network } from "near-safe";
 import { parseEther } from "viem";
 import {
   validateWethInput,
@@ -114,20 +113,8 @@ describe("evm/weth", () => {
 
     it("throws error for chain without wrapped address", () => {
       // Mock a network without wrapped address
-      jest.spyOn(Network, "fromChainId").mockImplementationOnce(
-        () =>
-          ({
-            name: "TestNet",
-            nativeCurrency: {
-              wrappedAddress: null,
-              symbol: "TEST",
-              decimals: 18,
-            },
-          }) as unknown as Network,
-      );
-
       expect(() => getNativeAsset(999)).toThrow(
-        "Couldn't find wrapped address for Network TestNet (chainId=999)",
+        "Couldn't find wrapped address for chainId=999",
       );
     });
   });
