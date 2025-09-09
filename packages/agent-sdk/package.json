@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@bitte-ai/types": "^0.8.1",
-    "viem": "^2.37.1",
+    "viem": "^2.37.5",
     "zerion-sdk": "^0.1.6"
   }
 }
