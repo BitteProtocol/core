@@ -1,5 +1,5 @@
 import { zeroAddress } from "viem";
-import { getTokenDetails, getTokenInfo } from "../../src";
+import { getTokenDetails, getTokenInfo } from "../../src/evm";
 describe("getTokenDetails", () => {
   it("should fail to get token details for zero address", async () => {
     await expect(getTokenDetails(100, zeroAddress)).rejects.toThrow(); // or .rejects.toThrow("specific error message") if you want to check the message

@@ -4,7 +4,7 @@ import {
   erc20Approve,
   checkAllowance,
   getTokenInfo,
-} from "../../src";
+} from "../../src/evm";
 import { getClientForChain } from "../../src/evm/client";
 
 describe("ERC20 Utilities", () => {

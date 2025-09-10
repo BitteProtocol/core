@@ -4,7 +4,7 @@ import {
   getNativeAsset,
   unwrapMetaTransaction,
   wrapMetaTransaction,
-} from "../../src/evm/weth";
+} from "../../src/evm";
 
 describe("evm/weth", () => {
   // Existing tests
