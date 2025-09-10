@@ -1,5 +1,3 @@
-
-
 export async function getNearPriceUSD(): Promise<number> {
   try {
     const price = await Promise.any([coinGeckoPrice(), binancePrice()]);
@@ -19,7 +17,7 @@ export async function binancePrice(): Promise<number> {
 
 const COIN_GECKO_API =
   "https://api.coingecko.com/api/v3/simple/price?ids=near&vs_currencies=usd";
-  
+
 export async function coinGeckoPrice(): Promise<number> {
   return fetchPrice<{ near: { usd: number } }>(
     COIN_GECKO_API,
