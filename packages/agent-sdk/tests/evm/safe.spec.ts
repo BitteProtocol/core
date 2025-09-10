@@ -2,7 +2,7 @@ import {
   getSafeBalances,
   flatSafeBalances,
   zerionToTokenBalance,
-} from "../../src";
+} from "../../src/evm";
 describe("getSafeBalances", () => {
   const originalWarn = console.warn;
 
