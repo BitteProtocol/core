@@ -43,3 +43,26 @@ export async function ftBalance({
   }
   return result;
 }
+
+export async function ftStorageBalance({
+  contractId,
+  accountId,
+  rpcUrl,
+}: FTParams): Promise<string | null> {
+  const provider = new providers.JsonRpcProvider({
+    url: rpcUrl || "https://rpc.mainnet.near.org",
+  });
+  try {
+    const result = await provider.callFunction<string>(
+      contractId,
+      "storage_balance_of",
+      { account_id: accountId },
+    );
+    return result || null;
+  } catch (err) {
+    console.warn(
+      `Could not read ftBalance of ${accountId} for ${contractId}: ${(err as Error).message}`,
+    );
+    return null;
+  }
+}
