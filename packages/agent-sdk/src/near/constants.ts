@@ -7,9 +7,9 @@ export declare const DEPLOY_CONTRACT_V2_DEPOSIT: string;
 export declare const LISTING_DEPOSIT: string;
 export declare const FT_STORAGE_DEPOSIT: string;
 export const GAS_CONSTANTS = {
-  DEFAULT_GAS,
+  DEFAULT_GAS: "200000000000000",
   OPTIMAL_GAS: "225000000000000",
-  MAX_GAS,
+  MAX_GAS: "300000000000000",
   FT_TRANSFER: "15000000000000",
 };
 export declare const STORAGE_PRICE_PER_BYTE_EXPONENT = 19;

@@ -1,22 +1,29 @@
-export async function getNearPriceUSD(): Promise<number> {
-  try {
-    const price = await Promise.any([coinGeckoPrice(), binancePrice()]);
-    return price;
-  } catch (err) {
-    // All failed: surface useful information
-    throw new Error(`All price providers failed or timed out: ${String(err)}`);
-  }
-}
-
 const BINANCE_API =
   "https://api.binance.com/api/v3/ticker/price?symbol=NEARUSDT";
+const COIN_GECKO_API =
+  "https://api.coingecko.com/api/v3/simple/price?ids=near&vs_currencies=usd";
+
+export async function getNearPriceUSD(): Promise<number> {
+  const errs: string[] = [];
+
+  try {
+    const price = await coinGeckoPrice();
+    return price;
+  } catch (err) {
+    errs.push(`coingecko: ${err}`);
+  }
+  try {
+    const price = await binancePrice();
+    return price;
+  } catch (err) {
+    errs.push(`binance: ${err}`);
+  }
+  throw new Error(`All price providers failed:\n- ${errs.join("\n- ")}`);
+}
 
 export async function binancePrice(): Promise<number> {
   return fetchPrice<{ price: number }>(BINANCE_API, (x) => x.price);
 }
-
-const COIN_GECKO_API =
-  "https://api.coingecko.com/api/v3/simple/price?ids=near&vs_currencies=usd";
 
 export async function coinGeckoPrice(): Promise<number> {
   return fetchPrice<{ near: { usd: number } }>(
