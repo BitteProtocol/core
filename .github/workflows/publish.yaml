@@ -36,6 +36,11 @@ jobs:
       - name: Publish with npm
         run: |
           cd packages/agent-sdk
-          npm publish --access public
+          # If the version string includes a hyphen (e.g. 1.2.0-beta.1), mark as "next"
+          if [[ "$GITHUB_REF" =~ - ]]; then
+            npm publish --access public --tag next
+          else
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
