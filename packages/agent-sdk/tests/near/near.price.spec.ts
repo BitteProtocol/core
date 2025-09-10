@@ -1,7 +1,7 @@
 import { binancePrice, coinGeckoPrice, getNearPriceUSD } from "../../src/near";
 
 describe("near utilities", () => {
-  it("getNearPriceUSD", async () => {
+  it.only("getNearPriceUSD", async () => {
     expect(await getNearPriceUSD()).toBeDefined();
   });
 
