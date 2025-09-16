@@ -78,7 +78,10 @@ export async function callAgent(
   let content = "";
   let finishReason = "";
   let resultAgentId = "";
-  const toolResults: { toolCallId: string; result: { error?: string; data?: unknown } }[] = [];
+  const toolResults: {
+    toolCallId: string;
+    result: { error?: string; data?: unknown };
+  }[] = [];
 
   for (const line of lines) {
     const prefix = line.substring(0, 2);
@@ -123,7 +126,7 @@ export async function callAgent(
     toolResults: toolResults.map((toolResult) =>
       toolResult.result.error
         ? { error: toolResult.result.error }
-        : { data: toolResult.result.data }
+        : { data: toolResult.result.data },
     ),
     messageId,
     finishReason,
