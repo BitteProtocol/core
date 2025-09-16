@@ -1,6 +1,6 @@
 import { BitteToolResult } from "@bitte-ai/types";
 
-const BITTE_API_URL = "https://ai-runtime-446257178793.europe-west1.run.app";
+const BITTE_API_URL = "https://ai-runtime-446257178793.europe-west1.run.app/chat";
 
 export interface AgentResponse {
   content: string;
