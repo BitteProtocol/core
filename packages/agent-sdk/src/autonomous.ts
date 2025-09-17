@@ -1,11 +1,17 @@
-import { BitteToolResult } from "@bitte-ai/types";
-
 const BITTE_API_URL =
   "https://ai-runtime-446257178793.europe-west1.run.app/chat";
 
+export interface ToolResult {
+  toolCallId: string;
+  result: {
+    error?: string;
+    data?: unknown;
+  };
+}
+
 export interface AgentResponse {
   content: string;
-  toolResults: BitteToolResult[];
+  toolResults: ToolResult[];
   messageId: string;
   finishReason: string;
   agentId: string;
@@ -123,11 +129,10 @@ export async function callAgent(
 
   return {
     content: content.trim(),
-    toolResults: toolResults.map((toolResult) =>
-      toolResult.result.error
-        ? { error: toolResult.result.error }
-        : { data: toolResult.result.data },
-    ),
+    toolResults: toolResults.map((toolResult) => ({
+      toolCallId: toolResult.toolCallId,
+      result: toolResult.result,
+    })),
     messageId,
     finishReason,
     agentId: resultAgentId,
