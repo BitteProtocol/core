@@ -1,17 +1,17 @@
 const BITTE_API_URL =
   "https://ai-runtime-446257178793.europe-west1.run.app/chat";
 
-export interface ToolResult {
+export interface ToolResult<T = Record<string, unknown>> {
   toolCallId: string;
   result: {
     error?: string;
-    data?: unknown;
+    data?: T;
   };
 }
 
-export interface AgentResponse {
+export interface AgentResponse<T = Record<string, unknown>> {
   content: string;
-  toolResults: ToolResult[];
+  toolResults: ToolResult<T>[];
   messageId: string;
   finishReason: string;
   agentId: string;
@@ -38,14 +38,14 @@ export interface ChatPayload {
   config: ChatConfig;
 }
 
-export async function callAgent(
+export async function callAgent<T = Record<string, unknown>>(
   accountId: string,
   message: string,
   agentId: string,
   evmAddress: string = "",
   suiAddress: string = "",
   solanaAddress: string = "",
-): Promise<AgentResponse> {
+): Promise<AgentResponse<T>> {
   const chatId = `chat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
   const payload: ChatPayload = {
@@ -84,10 +84,7 @@ export async function callAgent(
   let content = "";
   let finishReason = "";
   let resultAgentId = "";
-  const toolResults: {
-    toolCallId: string;
-    result: { error?: string; data?: unknown };
-  }[] = [];
+  const toolResults: ToolResult<T>[] = [];
 
   for (const line of lines) {
     const prefix = line.substring(0, 2);
@@ -129,10 +126,7 @@ export async function callAgent(
 
   return {
     content: content.trim(),
-    toolResults: toolResults.map((toolResult) => ({
-      toolCallId: toolResult.toolCallId,
-      result: toolResult.result,
-    })),
+    toolResults,
     messageId,
     finishReason,
     agentId: resultAgentId,
