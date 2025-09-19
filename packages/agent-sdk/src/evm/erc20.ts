@@ -1,7 +1,6 @@
 import { erc20Abi, PublicClient } from "viem";
 import { encodeFunctionData, type Address } from "viem";
-import type { MetaTransaction } from "@bitte-ai/types";
-import type { TokenInfo } from "./types";
+import type { TokenInfo, MetaTransaction } from "./types";
 import { getClientForChain } from "./client";
 
 const NATIVE_ASSET = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";

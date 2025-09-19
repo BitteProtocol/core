@@ -1,4 +1,4 @@
-import { SignRequest } from "@bitte-ai/types";
+import { SignRequest } from "./evm/types";
 import { errorString } from "./error";
 
 export interface TxData {
