@@ -1,4 +1,4 @@
-import { MetaTransaction } from "@bitte-ai/types";
+import { MetaTransaction } from "./evm/types";
 
 export const NULL_TRANSACTION: MetaTransaction = {
   to: "0x0000000000000000000000000000000000000000",

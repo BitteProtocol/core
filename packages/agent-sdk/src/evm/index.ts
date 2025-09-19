@@ -1,5 +1,5 @@
 import { getAddress, isHex, toHex, toBytes, zeroAddress } from "viem";
-import { SignRequest, MetaTransaction } from "@bitte-ai/types";
+import type { SignRequest, MetaTransaction } from "./types";
 import type { Address, Hex } from "viem";
 
 export * from "./types";

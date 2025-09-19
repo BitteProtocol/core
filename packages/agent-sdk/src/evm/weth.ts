@@ -1,4 +1,4 @@
-import type { MetaTransaction } from "@bitte-ai/types";
+import type { MetaTransaction } from "./types";
 import {
   type Address,
   encodeFunctionData,
