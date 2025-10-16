@@ -1,0 +1,149 @@
+const BITTE_API_URL =
+  "https://ai-runtime-446257178793.europe-west1.run.app/chat";
+
+// TODO: All of these interfaces should be moved to a shared types package (@bitte-ai/types)
+export interface ToolResult<T = Record<string, unknown>> {
+  toolCallId: string;
+  result: {
+    error?: string;
+    data?: T;
+  };
+}
+
+export interface AgentResponse<T = Record<string, unknown>> {
+  content: string;
+  toolResults: ToolResult<T>[];
+  messageId: string;
+  finishReason: string;
+  agentId: string;
+}
+
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+  messageId: string;
+}
+
+export interface ChatConfig {
+  mode: "debug" | "production";
+  agentId: string;
+  promptOverride?: string;
+}
+
+export interface ChatPayload {
+  id: string;
+  accountId: string;
+  messages: ChatMessage[];
+  config: ChatConfig;
+  evmAddress?: string;
+  suiAddress?: string;
+  solanaAddress?: string;
+}
+
+export interface AgentCallPayload {
+  accountId: string;
+  message: string;
+  agentId: string;
+  evmAddress?: string;
+  suiAddress?: string;
+  solanaAddress?: string;
+  systemPrompt?: string;
+}
+
+export async function callAgent<T = Record<string, unknown>>({
+  accountId,
+  message,
+  agentId,
+  evmAddress,
+  suiAddress,
+  solanaAddress,
+  systemPrompt,
+}: AgentCallPayload): Promise<AgentResponse<T>> {
+  const payload: ChatPayload = {
+    id: `chat_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
+    accountId,
+    evmAddress,
+    suiAddress,
+    solanaAddress,
+    messages: [
+      {
+        role: "user",
+        content: message,
+        messageId: Math.random().toString(36).substring(2, 9),
+      },
+    ],
+    config: {
+      mode: "debug",
+      agentId,
+      ...(systemPrompt ? { promptOverride: systemPrompt } : {}),
+    },
+  };
+
+  const response = await fetch(BITTE_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.BITTE_API_KEY}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Bitte API responded with status: ${response.status}`);
+  }
+
+  const text = await response.text();
+  const lines = text.split("\n");
+
+  let messageId = "";
+  let content = "";
+  let finishReason = "";
+  let resultAgentId = "";
+  const toolResults: ToolResult<T>[] = [];
+
+  for (const line of lines) {
+    const prefix = line.substring(0, 2);
+    const data = line.substring(2);
+
+    switch (prefix) {
+      case "f:":
+        try {
+          const metadata = JSON.parse(data);
+          messageId = metadata.messageId || "";
+        } catch {}
+        break;
+      case "0:":
+        try {
+          content += JSON.parse(data);
+        } catch {}
+        break;
+      case "a:":
+        try {
+          toolResults.push(JSON.parse(data));
+        } catch {}
+        break;
+      case "e:":
+        try {
+          const endData = JSON.parse(data);
+          finishReason = endData.finishReason || "";
+        } catch {}
+        break;
+      case "8:":
+        try {
+          const agentData = JSON.parse(data);
+          if (Array.isArray(agentData) && agentData[0]?.agentId) {
+            resultAgentId = agentData[0].agentId;
+          }
+        } catch {}
+        break;
+    }
+  }
+
+  return {
+    content: content.trim(),
+    toolResults,
+    messageId,
+    finishReason,
+    agentId: resultAgentId,
+  };
+}
