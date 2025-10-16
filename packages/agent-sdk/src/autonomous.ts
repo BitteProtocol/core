@@ -1,6 +1,7 @@
 const BITTE_API_URL =
   "https://ai-runtime-446257178793.europe-west1.run.app/chat";
 
+// TODO: All of these interfaces should be moved to a shared types package (@bitte-ai/types)
 export interface ToolResult<T = Record<string, unknown>> {
   toolCallId: string;
   result: {
@@ -32,26 +33,34 @@ export interface ChatConfig {
 export interface ChatPayload {
   id: string;
   accountId: string;
-  evmAddress: string;
-  suiAddress: string;
-  solanaAddress: string;
   messages: ChatMessage[];
   config: ChatConfig;
+  evmAddress?: string;
+  suiAddress?: string;
+  solanaAddress?: string;
 }
 
-export async function callAgent<T = Record<string, unknown>>(
-  accountId: string,
-  message: string,
-  agentId: string,
-  evmAddress: string = "",
-  suiAddress: string = "",
-  solanaAddress: string = "",
-  systemPrompt?: string,
-): Promise<AgentResponse<T>> {
-  const chatId = `chat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+export interface AgentCallPayload {
+  accountId: string;
+  message: string;
+  agentId: string;
+  evmAddress?: string;
+  suiAddress?: string;
+  solanaAddress?: string;
+  systemPrompt?: string;
+}
 
+export async function callAgent<T = Record<string, unknown>>({
+  accountId,
+  message,
+  agentId,
+  evmAddress,
+  suiAddress,
+  solanaAddress,
+  systemPrompt,
+}: AgentCallPayload): Promise<AgentResponse<T>> {
   const payload: ChatPayload = {
-    id: chatId,
+    id: `chat_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
     accountId,
     evmAddress,
     suiAddress,
@@ -60,7 +69,7 @@ export async function callAgent<T = Record<string, unknown>>(
       {
         role: "user",
         content: message,
-        messageId: Math.random().toString(36).substr(2, 9),
+        messageId: Math.random().toString(36).substring(2, 9),
       },
     ],
     config: {
