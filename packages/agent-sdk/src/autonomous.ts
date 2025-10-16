@@ -26,6 +26,7 @@ export interface ChatMessage {
 export interface ChatConfig {
   mode: "debug" | "production";
   agentId: string;
+  promptOverride?: string;
 }
 
 export interface ChatPayload {
@@ -45,6 +46,7 @@ export async function callAgent<T = Record<string, unknown>>(
   evmAddress: string = "",
   suiAddress: string = "",
   solanaAddress: string = "",
+  systemPrompt?: string,
 ): Promise<AgentResponse<T>> {
   const chatId = `chat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
@@ -61,7 +63,11 @@ export async function callAgent<T = Record<string, unknown>>(
         messageId: Math.random().toString(36).substr(2, 9),
       },
     ],
-    config: { mode: "debug", agentId },
+    config: {
+      mode: "debug",
+      agentId,
+      ...(systemPrompt ? { promptOverride: systemPrompt } : {}),
+    },
   };
 
   const response = await fetch(BITTE_API_URL, {
