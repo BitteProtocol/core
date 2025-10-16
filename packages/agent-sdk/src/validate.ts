@@ -1,3 +1,5 @@
+// All of this is deprecated in favour of ./schema
+// Will be kept around for a while.
 import { type Address, getAddress } from "viem";
 
 export type FieldParser<T> = Record<keyof T, FieldValidator<T[keyof T]>>;
